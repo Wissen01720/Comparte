@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecuador Comparte - Transformando Latinoamérica</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gilroy:wght@200;400;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Gilroy', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            font-weight: 400;
+        }
+
+        /* Header/Navbar - GLOBAL */
+        .site-header {
+            background: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .site-header .logo {
+            width: 60px;
+            height: 60px;
+            background: url('logo.png') no-repeat center/contain;
+            flex-shrink: 0;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        #main-nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        /* Header/Navbar Legacy - para compatibilidad */
+        header {
+            background: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        body {
+            margin-top: 80px;
+        }
+
+        .logo {
+            font-weight: 700;
+            color: #E84C3D;
+            font-size: 20px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #5B4B8A;
+            font-weight: 400;
+            font-size: 16px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #E84C3D;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 50px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            background: linear-gradient(135deg, #E84C3D 0%, #D63F70 20%, #8B4E9E 40%, #5B4B8A 70%, #2E7AB8 90%, #00A8E1 100%);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('./imagen_fondo_1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            z-index: 0;
+            filter: blur(2px);
+            pointer-events: none;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(232, 76, 61, 0.7) 0%, rgba(214, 63, 112, 0.7) 20%, rgba(139, 78, 158, 0.7) 40%, rgba(91, 75, 138, 0.7) 70%, rgba(46, 122, 184, 0.7) 90%, rgba(0, 168, 225, 0.7) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            font-weight: 200;
+        }
+
+        /* Secciones - Ocultas inicialmente */
+        section {
+            padding: 120px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Secciones visibles al scroll */
+        section.visible-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fondo para sección Sobre Nosotros */
+        #sobre::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #E8D4C4;
+            background-image: url('./grupo-de-diferentes-personas-voluntarias-en-un-banco-de-alimentos.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 1;
+            z-index: 0;
+            filter: blur(1px);
+            pointer-events: none;
+        }
+
+        #sobre {
+            background: none;
+            padding: 120px 50px;
+            max-width: 100%;
+            color: #333;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #sobre .section-text {
+            background: white;
+            padding: 80px;
+            border-radius: 8px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        #sobre h2 {
+            color: #E84C3D;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #sobre h3 {
+            color: #333;
+            position: relative;
+            z-index: 2;
+        }
+
+        #sobre .section-text p {
+            color: #555;
+            position: relative;
+            z-index: 2;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 42px;
+            color: #E84C3D;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            font-weight: 800;
+        }
+
+        .section-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+            font-weight: 200;
+        }
+
+        /* Impacto - Cifras */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border-left: 4px solid #E84C3D;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #E84C3D;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Carrusel de Empresas */
+        .carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 40px 0;
+        }
+
+        .carousel-item {
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #999;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Paises */
+        .paises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .pais-card {
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .pais-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #E84C3D;
+        }
+
+        .pais-card h3 {
+            margin-top: 0;
+            color: #E84C3D;
+        }
+
+        /* Noticias */
+        .noticias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .noticia-card {
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .noticia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .noticia-header {
+            background: #E84C3D;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+        }
+
+        .noticia-content {
+            padding: 20px;
+        }
+
+        /* Como Apoyar */
+        .apoyo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .apoyo-card {
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 4px solid #E84C3D;
+        }
+
+        .apoyo-card h3 {
+            color: #E84C3D;
+            margin-top: 0;
+        }
+
+        /* Programas Grid */
+        .programas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        #programas {
+            background: linear-gradient(135deg, #E84C3D 0%, #D63F70 20%, #8B4E9E 40%, #5B4B8A 70%, #2E7AB8 90%, #00A8E1 100%);
+            color: white;
+            width: 100vw !important;
+            margin-left: calc(-50vw + 50%) !important;
+            margin-right: calc(-50vw + 50%) !important;
+            padding: 120px 50px !important;
+            min-height: 100vh !important;
+            max-width: none !important;
+        }
+
+        #programas h2 {
+            color: white;
+        }
+
+        .programa-card {
+            background: #f5f5f5;
+            padding: 0;
+            border-radius: 8px;
+            border-left: 4px solid #E84C3D;
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .programa-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .programa-card-imagen {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .programa-card-contenido {
+            padding: 40px;
+        }
+
+        .programa-card h3 {
+            color: #E84C3D;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .programa-card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* Formulario de Contacto */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #E84C3D;
+            box-shadow: 0 0 0 3px rgba(232, 76, 61, 0.1);
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            background: #E84C3D;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #D63F70;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 50px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #E84C3D;
+            margin-bottom: 20px;
+        }
+
+        .footer-phrase {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+            color: #E84C3D;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: #E84C3D;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #E84C3D;
+            border-radius: 50%;
+            margin-bottom: 0;
+            font-size: 18px;
+        }
+
+        .paises-footer {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pais-footer {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #E84C3D;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .pais-footer:hover {
+            background: #D63F70;
+        }
+
+        .footer-divider {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        /* ANIMACIONES POR SECCIÓN */
+        
+        /* Animación entrada - Fade In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animación salida - Fade Out */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Animación - Slide Left */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Animación - Slide Right */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Animación - Scale Up */
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animación - Bounce */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Sección INICIO - Fade In lento */
+        #inicio {
+            animation: fadeIn 1s ease-out;
+            transition: opacity 0.5s ease-out;
+        }
+
+        #inicio.fade-out {
+            opacity: 0;
+        }
+
+        #inicio.fade-in {
+            opacity: 1;
+        }
+
+        #inicio.visible-section {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Sección QUIENES SOMOS - Slide In desde izquierda */
+        #quienes {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        #quienes h2 {
+            animation: slideInLeft 0.8s ease-out 0.2s both;
+        }
+
+        #quienes .section-text {
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        /* Sección IMPACTO - Scale Up en tarjetas */
+        #impacto {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        #impacto .stat-item {
+            animation: scaleUp 0.6s ease-out;
+        }
+
+        #impacto .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        #impacto .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        #impacto .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        #impacto .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Sección PAÍSES - Slide In desde derecha */
+        #paises {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        #paises .pais-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        #paises .pais-card:nth-child(1) { animation-delay: 0.1s; }
+        #paises .pais-card:nth-child(2) { animation-delay: 0.2s; }
+        #paises .pais-card:nth-child(3) { animation-delay: 0.3s; }
+        #paises .pais-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Sección NOTICIAS - Bounce suave */
+        #noticias {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        #noticias .noticia-card {
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        #noticias .noticia-card:nth-child(1) { animation-delay: 0.1s; }
+        #noticias .noticia-card:nth-child(2) { animation-delay: 0.2s; }
+        #noticias .noticia-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Sección APOYO - Scale Up */
+        #apoyar {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        #apoyar .apoyo-card {
+            animation: scaleUp 0.6s ease-out;
+        }
+
+        #apoyar .apoyo-card:nth-child(1) { animation-delay: 0.1s; }
+        #apoyar .apoyo-card:nth-child(2) { animation-delay: 0.3s; }
+
+        /* Sección EDIFICA */
+        #edifica {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .edifica-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .edifica-intro {
+            margin-bottom: 60px;
+        }
+
+        .edifica-description {
+            font-size: 18px;
+            color: #E84C3D;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .edifica-intro p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .edifica-benefits {
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .edifica-benefits h3 {
+            color: #E84C3D;
+            margin-top: 0;
+        }
+
+        .benefits-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .benefits-list li {
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #E84C3D;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .edifica-testimonials {
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .edifica-testimonials h3 {
+            color: #E84C3D;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #E84C3D;
+            animation: scaleUp 0.6s ease-out;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.5s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.6s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.7s; }
+
+        .testimonial-avatar {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .testimonial-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .edifica-cta {
+            background: linear-gradient(135deg, #E84C3D 0%, #D63F70 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 8px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out 0.8s both;
+        }
+
+        .edifica-cta h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        .edifica-cta p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-large {
+            font-size: 18px;
+            padding: 18px 50px;
+            background: white;
+            color: #E84C3D;
+            font-weight: 700;
+        }
+
+        .btn-large:hover {
+            background: #f0f0f0;
+        }
+
+        /* Página EDIFICA - Separada */
+        .edifica-page {
+            display: none;
+        }
+
+        .edifica-page.active {
+            display: block;
+        }
+
+        .edifica-hero {
+            background: linear-gradient(135deg, #D63F70 0%, #8B4E9E 50%, #5B4B8A 100%);
+            padding: 120px 50px;
+            color: white;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edifica-hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .edifica-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 50px;
+        }
+
+        /* Sección CONTACTO - Fade In */
+        #contacto {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        #contacto .form-container {
+            animation: slideInLeft 0.8s ease-out 0.2s both;
+        }
+
+        /* ANIMACIONES AL PASAR EL MOUSE */
+        .stat-item:hover {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        .pais-card:hover {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        .noticia-card:hover {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        .apoyo-card:hover {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        /* Contacto - Layout */
+        .contacto-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+            align-items: start;
+        }
+
+        .contacto-info {
+            padding-right: 40px;
+        }
+
+        .contacto-info p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            font-size: 24px;
+            min-width: 30px;
+            color: #E84C3D;
+        }
+
+        .info-item div {
+            flex: 1;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .info-item a {
+            color: #E84C3D;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contacto-form {
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        /* ========== SITIOS ========== */
+        
+        /* Contenedor maestro de sitios */
+        .sitio {
+            display: none;
+        }
+
+        .sitio.activo {
+            display: block;
+        }
+
+        .site-section {
+            padding: 120px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .site-section:first-of-type {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .site-section.visible-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .site-footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 50px;
+            margin-top: 80px;
+        }
+
+        .site-footer .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-footer .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #E84C3D;
+            margin-bottom: 20px;
+        }
+
+        .site-footer p {
+            color: #ccc;
+        }
+
+        .footer-phrase {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+            color: #E84C3D;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-section a:hover {
+            color: #E84C3D;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #E84C3D;
+            border-radius: 50%;
+            margin-bottom: 0;
+            font-size: 18px;
+        }
+
+        .paises-footer {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pais-footer {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #E84C3D;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .pais-footer:hover {
+            background: #D63F70;
+        }
+
+        .footer-divider {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            section {
+                padding: 80px 20px;
+                min-height: auto;
+            }
+
+            .hero {
+                padding: 60px 20px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+
+            .contacto-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contacto-info {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GLOBAL HEADER - SIEMPRE VISIBLE Y FIJO -->
+    <header class="site-header" id="global-header">
+        <a href="#inicio" class="logo"></a>
+        <nav id="main-nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#sobre">Sobre nosotros</a>
+            <a href="#programas">Programas</a>
+            <a href="#actualidad">Actualidad</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div id="contenido-principal">
+
+    <!-- SECCIONES PRINCIPALES -->
+
+    <!-- INICIO -->
+    <section id="inicio" class="site-section">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>UN PROPÓSITO QUE NACIÓ DE ECUADOR Y HOY INSPIRA A TODA LATINOAMÉRICA</h1>
+                <p>Una red que une personas, empresas y comunidades, para construir una región más humana, productiva y consciente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre" class="site-section">
+        <h2>Sobre Nosotros</h2>
+        <div class="section-text">
+            <h3>En Latinoamérica Comparte creemos que transformar personas es transformar empresas.</h3>
+            <p>Nacimos de una historia real de pérdida, fe y propósito.</p>
+            <p>Lo que comenzó en Ecuador como un movimiento para ayudar a familias a reconstruir su productividad, hoy se ha convertido en una red continental que promueve el bienestar, la cultura organizacional y el emprendimiento con propósito.</p>
+            <p>En cada país acompañamos a personas, familias y empresas a reencontrar su propósito productivo y a construir un futuro sostenible.</p>
+            <h3>Porque cuando un país comparte, Latinoamérica avanza.</h3>
+        </div>
+    </section>
+
+    <!-- PROGRAMAS -->
+    <section id="programas" class="site-section">
+        <h2>Nuestros Programas</h2>
+        
+        <div class="programas-grid">
+            <div class="programa-card">
+                <div class="programa-card-imagen" style="background-image: url('./programa_edifica.jpg');"></div>
+                <div class="programa-card-contenido">
+                    <h3>Programa Edifica</h3>
+                    <p>Altos Estudios en Emprendimiento</p>
+                    <a href="#" class="btn">Conocer más</a>
+                </div>
+            </div>
+            <div class="programa-card">
+                <div class="programa-card-imagen" style="background-image: url('./programa_edifica_deportados.jpeg');"></div>
+                <div class="programa-card-contenido">
+                    <h3>Programa Edifica Deportados</h3>
+                    <p>Para deportistas en transición</p>
+                    <a href="#" class="btn">Conocer más</a>
+                </div>
+            </div>
+            <div class="programa-card">
+                <div class="programa-card-imagen" style="background-image: url('./show_conferencias.jpeg');"></div>
+                <div class="programa-card-contenido">
+                    <h3>Shows y Conferencias</h3>
+                    <p>Eventos inspiradores y educativos</p>
+                    <a href="#" class="btn">Conocer más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTUALIDAD -->
+    <section id="actualidad" class="site-section">
+        <h2>Actualidad</h2>
+        
+        <div class="noticias-grid">
+            <div class="noticia-card">
+                <div class="noticia-header">Historias que Inspiran</div>
+                <div class="noticia-content">
+                    <h3>Casos de éxito y emprendedores</h3>
+                    <p>Descubre historias reales de personas que han transformado sus vidas a través de nuestros programas.</p>
+                </div>
+            </div>
+            <div class="noticia-card">
+                <div class="noticia-header">Noticias Corporativas</div>
+                <div class="noticia-content">
+                    <h3>Alianzas y expansión regional</h3>
+                    <p>Entérate de nuestras últimas alianzas estratégicas y expansión en Latinoamérica.</p>
+                </div>
+            </div>
+            <div class="noticia-card">
+                <div class="noticia-header">Eventos y Conferencias</div>
+                <div class="noticia-content">
+                    <h3>Red que Transforma y Top Speakers</h3>
+                    <p>Participa en nuestros eventos donde conectamos talento, ideas y oportunidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="site-section">
+        <h2>Contacto</h2>
+        
+        <div class="contacto-container">
+            <div class="contacto-info">
+                <p>Estamos listos para escuchar tu situación y ofrecer orientación</p>
+                
+                <div class="info-item">
+                    <span class="info-icon">✉</span>
+                    <div>
+                        <p class="info-label">Email</p>
+                        <a href="mailto:contacto@ecuadorcomparte.com">contacto@ecuadorcomparte.com</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div>
+                        <p class="info-label">Teléfono</p>
+                        <a href="tel:+593999999999">+593 99 999 9999</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div>
+                        <p class="info-label">Ubicación</p>
+                        <p>Ecuador</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contacto-form">
+                <form onsubmit="enviarFormulario(event)">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Email</label>
+                        <input type="email" id="correo" name="correo" placeholder="tu@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Tu consulta:</label>
+                        <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">Ecuador Comparte</div>
+            <div class="footer-phrase">"Cuando un país comparte, Latinoamérica avanza."</div>
+
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#sobre">Sobre nosotros</a>
+                    <a href="#programas">Programas</a>
+                    <a href="#actualidad">Actualidad</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="LinkedIn">in</a>
+                        <a href="#" title="Twitter">𝕏</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Países</h4>
+                    <div class="paises-footer">
+                        <span class="pais-footer">🇪🇨 Ecuador</span>
+                        <span class="pais-footer">🇨🇴 Colombia</span>
+                        <span class="pais-footer">🇨🇱 Chile</span>
+                        <span class="pais-footer">🇦🇷 Argentina</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider">
+                <p>&copy; 2024 Ecuador Comparte. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    </div>  <!-- CIERRA contenido-principal -->
+
+    <script>
+        // ========== INTERSECTION OBSERVER PARA ANIMACIONES ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible-section');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observar todas las secciones al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.site-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        function enviarFormulario(event) {
+            event.preventDefault();
+            alert('Gracias por tu mensaje. Uno de nuestros gerentes regionales se pondrá en contacto contigo pronto.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
