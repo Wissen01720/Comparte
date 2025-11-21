@@ -215,6 +215,36 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            position: relative;
+        }
+
+        .sobre-logo {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            z-index: 5;
+            animation: fadeInDown 0.8s ease-out 0.2s both;
+        }
+
+        .sobre-logo img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         #sobre .section-text {
@@ -369,11 +399,21 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
         .noticia-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .noticia-imagen {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .noticia-header {
@@ -385,6 +425,7 @@
 
         .noticia-content {
             padding: 20px;
+            flex-grow: 1;
         }
 
         /* Como Apoyar */
@@ -975,6 +1016,140 @@
             animation: slideInLeft 0.8s ease-out 0.2s both;
         }
 
+        /* Recuadro estilo igual a Sobre Nosotros */
+        #contacto {
+            position: relative;
+            background: linear-gradient(135deg, #E84C3D 0%, #D63F70 20%, #8B4E9E 40%, #5B4B8A 70%, #2E7AB8 90%, #00A8E1 100%);
+            color: white;
+            width: 100vw !important;
+            margin-left: calc(-50vw + 50%) !important;
+            margin-right: calc(-50vw + 50%) !important;
+            padding: 80px 50px !important;
+            min-height: 100vh !important;
+            max-width: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        #contacto::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .contacto-box {
+            background: #ffffff;
+            padding: 40px 80px;
+            border-radius: 8px;
+            max-width: 1100px;
+            width: 90%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contacto-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contacto-info, .contacto-form {
+            flex: 1 1 auto;
+        }
+
+        #contacto h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: #E84C3D;
+        }
+
+        #contacto textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        /* Modal para Programas */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #E84C3D;
+        }
+
+        .modal-content h3 {
+            color: #E84C3D;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         /* ANIMACIONES AL PASAR EL MOUSE */
         .stat-item:hover {
             animation: bounce 0.5s ease-in-out;
@@ -1085,76 +1260,109 @@
         }
 
         .site-footer {
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #E84C3D 0%, #D63F70 20%, #8B4E9E 40%, #5B4B8A 70%, #2E7AB8 90%, #00A8E1 100%);
             color: white;
-            padding: 60px 50px;
+            padding: 60px 50px 30px 50px;
             margin-top: 80px;
         }
 
         .site-footer .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .site-footer .footer-logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #E84C3D;
-            margin-bottom: 20px;
-        }
-
-        .site-footer p {
-            color: #ccc;
-        }
-
-        .footer-phrase {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 40px;
-            color: #ccc;
-        }
-
-        .footer-grid {
+        .footer-main {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: 250px 1fr;
+            gap: 80px;
             margin-bottom: 40px;
         }
 
-        .footer-section h4 {
-            margin-bottom: 20px;
-            color: #E84C3D;
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        .footer-section a {
-            display: block;
-            color: #ccc;
-            text-decoration: none;
-            margin-bottom: 10px;
-            transition: color 0.3s;
-            cursor: pointer;
+        .footer-logo-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
         }
 
-        .footer-section a:hover {
-            color: #E84C3D;
+        .footer-logo-image {
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
         }
 
         .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             width: 40px;
             height: 40px;
-            background: #E84C3D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: #E84C3D;
             border-radius: 50%;
-            margin-bottom: 0;
+            text-decoration: none;
+            font-weight: 600;
             font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .footer-sections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+        }
+
+        .footer-section a {
+            display: block;
+            margin-bottom: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s;
+        }
+
+        .footer-section a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
         }
 
         .paises-footer {
@@ -1164,14 +1372,13 @@
         }
 
         .pais-footer {
-            display: inline-block;
-            padding: 8px 12px;
-            background: #E84C3D;
-            border-radius: 4px;
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
             font-size: 12px;
+        }
+
+        .paises-footer {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .pais-footer:hover {
@@ -1272,6 +1479,9 @@
     <section id="sobre" class="site-section">
         <h2>Sobre Nosotros</h2>
         <div class="section-text">
+            <div class="sobre-logo">
+                <img src="logo.png" alt="Ecuador Comparte">
+            </div>
             <h3>En Latinoamérica Comparte creemos que transformar personas es transformar empresas.</h3>
             <p>Nacimos de una historia real de pérdida, fe y propósito.</p>
             <p>Lo que comenzó en Ecuador como un movimiento para ayudar a familias a reconstruir su productividad, hoy se ha convertido en una red continental que promueve el bienestar, la cultura organizacional y el emprendimiento con propósito.</p>
@@ -1290,7 +1500,7 @@
                 <div class="programa-card-contenido">
                     <h3>Programa Edifica</h3>
                     <p>Altos Estudios en Emprendimiento</p>
-                    <a href="#" class="btn">Conocer más</a>
+                    <button class="btn programa-btn" data-programa="edifica">Conocer más</button>
                 </div>
             </div>
             <div class="programa-card">
@@ -1298,7 +1508,7 @@
                 <div class="programa-card-contenido">
                     <h3>Programa Edifica Deportados</h3>
                     <p>Para deportistas en transición</p>
-                    <a href="#" class="btn">Conocer más</a>
+                    <button class="btn programa-btn" data-programa="deportados">Conocer más</button>
                 </div>
             </div>
             <div class="programa-card">
@@ -1306,7 +1516,7 @@
                 <div class="programa-card-contenido">
                     <h3>Shows y Conferencias</h3>
                     <p>Eventos inspiradores y educativos</p>
-                    <a href="#" class="btn">Conocer más</a>
+                    <button class="btn programa-btn" data-programa="shows">Conocer más</button>
                 </div>
             </div>
         </div>
@@ -1318,6 +1528,7 @@
         
         <div class="noticias-grid">
             <div class="noticia-card">
+                <div class="noticia-imagen" style="background-image: url('./noticia_historias.jpg');"></div>
                 <div class="noticia-header">Historias que Inspiran</div>
                 <div class="noticia-content">
                     <h3>Casos de éxito y emprendedores</h3>
@@ -1325,6 +1536,7 @@
                 </div>
             </div>
             <div class="noticia-card">
+                <div class="noticia-imagen" style="background-image: url('./noticia_alianzas.jpg');"></div>
                 <div class="noticia-header">Noticias Corporativas</div>
                 <div class="noticia-content">
                     <h3>Alianzas y expansión regional</h3>
@@ -1332,6 +1544,7 @@
                 </div>
             </div>
             <div class="noticia-card">
+                <div class="noticia-imagen" style="background-image: url('./noticia_eventos.jpg');"></div>
                 <div class="noticia-header">Eventos y Conferencias</div>
                 <div class="noticia-content">
                     <h3>Red que Transforma y Top Speakers</h3>
@@ -1343,9 +1556,9 @@
 
     <!-- CONTACTO -->
     <section id="contacto" class="site-section">
-        <h2>Contacto</h2>
-        
-        <div class="contacto-container">
+        <div class="contacto-box">
+            <h2>Contacto</h2>
+            <div class="contacto-container">
             <div class="contacto-info">
                 <p>Estamos listos para escuchar tu situación y ofrecer orientación</p>
                 
@@ -1397,45 +1610,63 @@
         </div>
     </section>
 
+    <!-- MODAL para Programas -->
+    <div id="programasModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modalTitle">Programa Edifica</h3>
+            <p id="modalDescription">Altos Estudios en Emprendimiento</p>
+            <p id="modalDetails">Descubre m\u00e1s sobre este programa y c\u00f3mo puede transformar tu carrera.</p>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-content">
-            <div class="footer-logo">Ecuador Comparte</div>
-            <div class="footer-phrase">"Cuando un país comparte, Latinoamérica avanza."</div>
-
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>Enlaces Rápidos</h4>
-                    <a href="#inicio">Inicio</a>
-                    <a href="#sobre">Sobre nosotros</a>
-                    <a href="#programas">Programas</a>
-                    <a href="#actualidad">Actualidad</a>
-                    <a href="#contacto">Contacto</a>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Redes Sociales</h4>
+            <div class="footer-main">
+                <div class="footer-left">
+                    <div class="footer-logo-box">
+                        <div class="footer-logo-image" style="background-image: url('logo.png');"></div>
+                        <div class="footer-logo-text">Ecuador Comparte</div>
+                    </div>
                     <div class="social-links">
                         <a href="#" title="Facebook">f</a>
                         <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="TikTok">♪</a>
                         <a href="#" title="LinkedIn">in</a>
-                        <a href="#" title="Twitter">𝕏</a>
+                        <a href="#" title="YouTube">▶</a>
                     </div>
                 </div>
 
-                <div class="footer-section">
-                    <h4>Países</h4>
-                    <div class="paises-footer">
-                        <span class="pais-footer">🇪🇨 Ecuador</span>
-                        <span class="pais-footer">🇨🇴 Colombia</span>
-                        <span class="pais-footer">🇨🇱 Chile</span>
-                        <span class="pais-footer">🇦🇷 Argentina</span>
+                <div class="footer-sections">
+                    <div class="footer-section">
+                        <h4>Explora</h4>
+                        <a href="#inicio">Inicio</a>
+                        <a href="#sobre">Quienes Somos</a>
+                        <a href="#programas">Programa edifica</a>
+                        <a href="#actualidad">Shows y conferencias</a>
+                        <a href="#actualidad">Blog</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4></h4>
+                        <a href="#actualidad">Noticias</a>
+                        <a href="#contacto">Contacto</a>
+                        <a href="#">Donaciones</a>
+                        <a href="#">Solicitudes DIAN</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Contáctanos</h4>
+                        <a href="tel:+593999999999">📞 (+593) 99 999 9999</a>
+                        <a href="tel:+593999999999">📞 (+593) 99 999 9999</a>
+                        <a href="mailto:contacto@ecuadorcomparte.com">✉ contacto@ecuadorcomparte.com</a>
                     </div>
                 </div>
             </div>
 
-            <div class="footer-divider">
-                <p>&copy; 2024 Ecuador Comparte. Todos los derechos reservados.</p>
+            <div class="footer-bottom">
+                <p>&copy; Copyright 2024 por Ecuador Comparte</p>
             </div>
         </div>
     </footer>
@@ -1470,6 +1701,53 @@
             alert('Gracias por tu mensaje. Uno de nuestros gerentes regionales se pondrá en contacto contigo pronto.');
             event.target.reset();
         }
+
+        // Modal de Programas
+        const modal = document.getElementById('programasModal');
+        const closeBtn = document.querySelector('.modal-close');
+        const programBtns = document.querySelectorAll('.programa-btn');
+
+        const programasData = {
+            edifica: {
+                title: 'Programa Edifica',
+                description: 'Altos Estudios en Emprendimiento',
+                details: 'Este programa te proporciona herramientas y conocimientos para emprender y desarrollar tu propio negocio. Aprenderás sobre planificación estratégica, finanzas, marketing digital y más. Ideal para profesionales que desean iniciar su propio camino empresarial.'
+            },
+            deportados: {
+                title: 'Programa Edifica Deportados',
+                description: 'Para deportistas en transición',
+                details: 'Diseñado especialmente para deportistas que buscan una segunda carrera profesional. Combinamos el conocimiento empresarial con el mentalidad ganadora de los atletas para crear líderes empresariales únicos.'
+            },
+            shows: {
+                title: 'Shows y Conferencias',
+                description: 'Eventos inspiradores y educativos',
+                details: 'Participá en eventos donde conectamos talento, ideas y oportunidades. Escucha historias de emprendedores exitosos, conéctate con profesionales de tu industria y expande tu red de contactos.'
+            }
+        };
+
+        programBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const programa = this.getAttribute('data-programa');
+                const data = programasData[programa];
+                
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalDescription').textContent = data.description;
+                document.getElementById('modalDetails').textContent = data.details;
+                
+                modal.classList.add('show');
+            });
+        });
+
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('show');
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
