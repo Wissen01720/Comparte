@@ -685,6 +685,20 @@ body::before {
 }
 
 /* Impact Section */
+.section.impact {
+  background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.8) 0%,
+      rgba(155, 93, 229, 0.8) 50%,
+      rgba(233, 69, 96, 0.8) 100%
+    ),
+    url("../img/5. FOTOS/felices-colegas-de-negocios-jovenes-emocionados-hacen-gesto-ganador.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
 .impact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1241,12 +1255,16 @@ body::before {
 /* Gradient Apoyar Section */
 .apoyar-gradient {
   background: linear-gradient(
-    135deg,
-    #667eea 0%,
-    #9b5de5 30%,
-    #e94560 70%,
-    #ff6b6b 100%
-  ) !important;
+      135deg,
+      rgba(102, 126, 234, 0.85) 0%,
+      rgba(155, 93, 229, 0.85) 30%,
+      rgba(233, 69, 96, 0.85) 70%,
+      rgba(255, 107, 107, 0.85) 100%
+    ),
+    url("../img/5. FOTOS/grupo-de-diferentes-personas-voluntarias-en-un-banco-de-alimentos.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
   position: relative;
   padding: 80px 0 !important;
   margin: 0 !important;
@@ -1305,6 +1323,20 @@ body::before {
 }
 
 /* Contact Section */
+.section.contact {
+  background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.75) 0%,
+      rgba(155, 93, 229, 0.75) 50%,
+      rgba(233, 69, 96, 0.75) 100%
+    ),
+    url("../img/5. FOTOS/trabajadores-de-negocios-de-comercio-electronico-de-hombre-y-mujer-que-trabajan-en-la-oficina.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
 .contact-form {
   max-width: 760px;
   margin: 0 auto;
@@ -1335,7 +1367,7 @@ body::before {
 .site-footer {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
   padding: 40px 0;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .footer-grid {
