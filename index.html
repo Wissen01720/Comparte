@@ -24,7 +24,7 @@
         /* Header/Navbar - GLOBAL */
         .site-header {
             background: white;
-            padding: 20px 50px;
+            padding: 30px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -37,20 +37,34 @@
         }
 
         .site-header .logo {
-            width: 60px;
-            height: 60px;
+            width: 75px;
+            height: 75px;
             background: url('logo.png') no-repeat center/contain;
             flex-shrink: 0;
             cursor: pointer;
             display: inline-block;
             text-decoration: none;
+            margin-right: 50px;
         }
 
         #main-nav {
             flex: 1;
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 40px;
+            align-items: center;
+            font-size: 17px;
+        }
+
+        #main-nav a {
+            color: #5B4B8A;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        #main-nav a:hover {
+            color: #E84C3D;
         }
 
         /* Header/Navbar Legacy - para compatibilidad */
@@ -227,13 +241,14 @@
         }
 
         .sobre-logo img {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             object-fit: contain;
             background: white;
-            padding: 10px;
+            padding: 15px;
             border-radius: 50%;
             box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            display: block;
         }
 
         @keyframes fadeInDown {
@@ -1047,9 +1062,9 @@
 
         .contacto-box {
             background: #ffffff;
-            padding: 40px 80px;
+            padding: 30px 60px;
             border-radius: 8px;
-            max-width: 1100px;
+            max-width: 1000px;
             width: 90%;
             margin: 0 auto;
             position: relative;
@@ -1057,7 +1072,7 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .contacto-container {
@@ -1450,8 +1465,8 @@
 <body>
     <!-- GLOBAL HEADER - SIEMPRE VISIBLE Y FIJO -->
     <header class="site-header" id="global-header">
-        <a href="#inicio" class="logo"></a>
         <nav id="main-nav">
+            <a href="#inicio" class="logo"></a>
             <a href="#inicio">Inicio</a>
             <a href="#sobre">Sobre nosotros</a>
             <a href="#programas">Programas</a>
@@ -1674,6 +1689,21 @@
     </div>  <!-- CIERRA contenido-principal -->
 
     <script>
+        // ========== SCROLL AL INICIO CON ANIMACIÓN ==========
+        if (window.location.hash) {
+            window.location.hash = '';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pequeño delay para que se vea la transición
+            setTimeout(() => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        });
+
         // ========== INTERSECTION OBSERVER PARA ANIMACIONES ==========
         const observerOptions = {
             threshold: 0.1,
@@ -1684,15 +1714,22 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible-section');
-                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         // Observar todas las secciones al cargar
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.site-section').forEach(section => {
-                observer.observe(section);
+            const sections = document.querySelectorAll('.site-section');
+            
+            sections.forEach((section, index) => {
+                if (index === 0) {
+                    // La primera sección (Inicio) se anima automáticamente
+                    section.classList.add('visible-section');
+                } else {
+                    // Las demás se animan cuando entran en viewport
+                    observer.observe(section);
+                }
             });
         });
 
