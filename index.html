@@ -10,19 +10,1887 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      :root {
+        --bg-gradient-1: linear-gradient(
+          165deg,
+          #00c3ff 0%,
+          #667eea 15%,
+          #9b5de5 35%,
+          #e94560 60%,
+          #ff6b6b 80%,
+          #f9a826 100%
+        );
+        --glass: rgba(255, 255, 255, 0.08);
+        --white-opa: rgba(255, 255, 255, 0.95);
+        --accent: #9b5de5;
+        --accent-2: #667eea;
+        --max-w: 1200px;
+        --nav-bg: rgba(20, 20, 40, 0.75);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Poppins", system-ui, -apple-system, Arial;
+        color: var(--white-opa);
+        background: var(--bg-gradient-1);
+        background-attachment: fixed;
+        -webkit-font-smoothing: antialiased;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 195, 255, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(233, 69, 96, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(155, 93, 229, 0.1) 0%,
+            transparent 60%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ========================================
+   NAVIGATION STYLES
+   ======================================== */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .site-header.scrolled {
+        background: rgba(15, 15, 35, 0.9);
+        backdrop-filter: blur(25px) saturate(200%);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(155, 93, 229, 0.3);
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 32px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .brand-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .brand-link:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+      }
+
+      .brand-logo {
+        height: 45px;
+        width: auto;
+      }
+
+      .brand {
+        font-weight: 800;
+        color: #fff;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+        background: linear-gradient(135deg, #fff 0%, #00c3ff 50%, #9b5de5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(155, 93, 229, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .brand:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+
+      .brand span {
+        background: linear-gradient(135deg, #9b5de5 0%, #f9a826 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: transparent;
+      }
+
+      .nav-links a::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(155, 93, 229, 0.2),
+          rgba(0, 195, 255, 0.2)
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        border-radius: 12px;
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+        transform: translateY(-2px);
+        text-shadow: 0 0 20px rgba(155, 93, 229, 0.6);
+      }
+
+      .nav-links a:hover::before {
+        opacity: 1;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 70%;
+        height: 2px;
+        background: linear-gradient(90deg, #00c3ff, #9b5de5, #f9a826);
+        border-radius: 2px;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .nav-links a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      .menu-toggle {
+        display: none;
+        background: rgba(155, 93, 229, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-size: 24px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .menu-toggle:hover {
+        background: rgba(155, 93, 229, 0.3);
+        transform: scale(1.05);
+      }
+
+      /* ========================================
+   BUTTON STYLES
+   ======================================== */
+      .btn {
+        padding: 14px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        color: #fff;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        font-weight: 700;
+        font-size: 15px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        display: inline-block;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .btn:hover::before {
+        opacity: 1;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, #9b5de5 0%, #667eea 100%);
+        box-shadow: 0 10px 40px rgba(155, 93, 229, 0.4);
+        border: 0;
+      }
+
+      .btn.primary:hover {
+        box-shadow: 0 15px 50px rgba(155, 93, 229, 0.6);
+        transform: translateY(-3px) scale(1.03);
+      }
+
+      .btn.ghost {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .btn.ghost:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .btn-outline-white {
+        display: inline-block;
+        padding: 14px 32px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #ffffff !important;
+        background: transparent;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-outline-white:hover {
+        background: #ffffff;
+        color: #667eea !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-solid-white {
+        display: inline-block;
+        padding: 14px 32px;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #667eea !important;
+        background: #ffffff;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-solid-white:hover {
+        background: transparent;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ========================================
+   HERO SECTION
+   ======================================== */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-top: 120px;
+        padding-bottom: 60px;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("../img/FOTOS/foto mentores dic 2024.jpeg");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.5) saturate(1.1);
+        opacity: 1;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 107, 107, 0.5) 0%,
+          rgba(233, 69, 96, 0.6) 20%,
+          rgba(155, 93, 229, 0.7) 50%,
+          rgba(102, 126, 234, 0.6) 80%,
+          rgba(0, 195, 255, 0.5) 100%
+        );
+        mix-blend-mode: normal;
+      }
+
+      .hero-content {
+        position: relative;
+        text-align: center;
+        z-index: 2;
+        max-width: 1100px;
+        padding: 40px 20px 20px;
+      }
+
+      .hero-title {
+        font-size: 52px;
+        margin: 0 0 16px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        line-height: 1.2;
+        color: #ffffff;
+      }
+
+      .hero-subtitle {
+        font-size: 36px;
+        margin: 0 0 40px;
+        color: rgba(121, 13, 127, 0.7);
+        background: linear-gradient(rgba(255, 255, 255, 0.9));
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        display: inline-block;
+        padding: 14px 36px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+
+      .hero-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin: 40px 0;
+        flex-wrap: wrap;
+      }
+
+      .hero-logo-item {
+        width: 140px;
+        height: 140px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 25px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .hero-logo-main {
+        width: 200px;
+        height: 200px;
+        padding: 35px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-logo-item:hover,
+      .hero-logo-main:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-logo-item img,
+      .hero-logo-main img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .hero-desc {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-top: 24px;
+        opacity: 0.95;
+        color: #ffffff;
+      }
+
+      /* ========================================
+   QUIENES SOMOS SECTION
+   ======================================== */
+      .quienes-hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 100px;
+        padding-bottom: 80px;
+        padding-left: 40px;
+        padding-right: 40px;
+        overflow: hidden;
+      }
+
+      .quienes-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("../img/FOTOS/DSC03329.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.6);
+        z-index: 0;
+      }
+
+      .quienes-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 107, 107, 0.5) 0%,
+          rgba(233, 69, 96, 0.6) 20%,
+          rgba(155, 93, 229, 0.7) 50%,
+          rgba(102, 126, 234, 0.6) 80%,
+          rgba(0, 195, 255, 0.5) 100%
+        );
+        z-index: 1;
+      }
+
+      .quienes-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .quienes-logo {
+        position: absolute;
+        top: -65px;
+        left: -50px;
+        margin-bottom: 0;
+        z-index: 10;
+      }
+
+      .quienes-logo img {
+        width: 120px;
+        height: 120px;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        object-fit: contain;
+      }
+
+      .quienes-title {
+        font-size: 64px;
+        font-weight: 900;
+        color: #ffffff;
+        margin-bottom: 40px;
+        letter-spacing: 3px;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        line-height: 1.1;
+        text-align: center;
+      }
+
+      .quienes-box {
+        background: rgba(248, 248, 248, 0.97);
+        padding: 50px 60px;
+        border-radius: 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        margin-bottom: 50px;
+        width: 100%;
+        max-width: 950px;
+        position: relative;
+        margin-top: 70px;
+      }
+
+      .quienes-box p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 16px;
+        text-align: justify;
+        font-weight: 400;
+      }
+
+      .quienes-box p:last-child {
+        margin-bottom: 0;
+      }
+
+      .quienes-countries {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .quienes-country-logo {
+        width: 100px;
+        height: 100px;
+        background: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+      }
+
+      .quienes-country-logo:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+      }
+
+      .quienes-country-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* ========================================
+   GENERAL SECTIONS
+   ======================================== */
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 26px;
+        margin: 0 0 18px;
+        color: #fff;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .lead {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 32px;
+        opacity: 0.9;
+      }
+
+      .subtle {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 8px;
+        font-size: 20px;
+        font-weight: 600;
+        opacity: 0.95;
+      }
+
+      /* Who We Are Section */
+      .who-grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .who-text p {
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+
+      .logo-circle {
+        background: rgba(206, 205, 205, 0.95);
+        color: #222;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        text-align: center;
+        font-weight: 800;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .logo-circle.big {
+        width: 320px;
+        height: 320px;
+        font-size: 20px;
+      }
+
+      .logo-circle.big img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        max-width: 240px;
+        max-height: 240px;
+      }
+
+      .logo-circle.small {
+        width: 90px;
+        height: 90px;
+        font-size: 12px;
+      }
+
+      /* Impact Section - Optimizado */
+      .section.impact {
+        background: linear-gradient(
+            135deg,
+            rgba(102, 126, 234, 0.8) 0%,
+            rgba(155, 93, 229, 0.8) 50%,
+            rgba(233, 69, 96, 0.8) 100%
+          ),
+          url("../img/FOTOS/felices-colegas-de-negocios-jovenes-emocionados-hacen-gesto-ganador.jpg");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+      }
+
+      .impact-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .impact-item {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 40px 20px;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .impact-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .impact-item:hover::before {
+        left: 100%;
+      }
+
+      .impact-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 20px 60px rgba(155, 93, 229, 0.4);
+        border-color: rgba(155, 93, 229, 0.5);
+      }
+
+      .impact-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #667eea 0%, #9b5de5 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(155, 93, 229, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .impact-item:hover .impact-icon {
+        transform: rotate(360deg) scale(1.1);
+        box-shadow: 0 15px 40px rgba(155, 93, 229, 0.5);
+      }
+
+      .impact-icon svg {
+        width: 40px;
+        height: 40px;
+        color: #ffffff;
+      }
+
+      .impact-number {
+        margin: 20px 0 15px;
+      }
+
+      .counter {
+        display: block;
+        font-size: 48px;
+        font-weight: 800;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        line-height: 1;
+      }
+
+      .impact-text {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.4;
+        margin-top: 10px;
+      }
+
+      /* Carousel Section */
+      .carousel {
+        margin-top: 22px;
+        overflow: hidden;
+        padding: 18px 0;
+      }
+
+      .carousel-desc {
+        text-align: center;
+        max-width: 800px;
+        margin: 12px auto 18px;
+        opacity: 0.9;
+        font-size: 16px;
+      }
+
+      .carousel-track {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        animation: slide 25s linear infinite;
+      }
+
+      .logo-item {
+        min-width: 180px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .logo-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .logo-item img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .logo {
+        min-width: 140px;
+        height: 140px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(-40%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* Countries Section */
+      .country-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        justify-content: center;
+        margin-top: 18px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .country {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 20px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .country:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .country img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        filter: brightness(1.1);
+      }
+
+      .country span {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      /* ========================================
+   TEAM SECTION
+   ======================================== */
+      .team-carousel-wrapper {
+        margin: 50px 0;
+        overflow: hidden;
+        padding: 20px 0;
+      }
+
+      .team-carousel {
+        display: flex;
+        gap: 30px;
+        animation: scrollTeam 20s linear infinite;
+      }
+
+      @keyframes scrollTeam {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .team-carousel:hover {
+        animation-play-state: paused;
+      }
+
+      .team-card {
+        flex: 0 0 250px;
+        transition: all 0.3s ease;
+      }
+
+      .team-card:hover {
+        transform: translateY(-10px) scale(1.05);
+      }
+
+      .team-photo {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        border: 5px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .team-card:hover .team-photo {
+        box-shadow: 0 20px 60px rgba(155, 93, 229, 0.5);
+        border-color: rgba(155, 93, 229, 0.5);
+      }
+
+      .team-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .team-cta {
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      .team-cta button {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Sección expandible del equipo completo */
+      .team-full-section {
+        margin-top: 50px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 50px 30px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: slideDown 0.5s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          max-height: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        to {
+          opacity: 1;
+          max-height: 5000px;
+          padding-top: 50px;
+          padding-bottom: 50px;
+        }
+      }
+
+      .team-full-container {
+        max-height: 800px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      /* Estilos personalizados del scrollbar */
+      .team-full-container::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      .team-full-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      .team-full-container::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #9b5de5 100%);
+        border-radius: 10px;
+      }
+
+      .team-full-container::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #9b5de5 0%, #e94560 100%);
+      }
+
+      .team-full-title {
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .team-full-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 40px;
+        padding: 0 20px 20px;
+      }
+
+      .team-member {
+        text-align: center;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .team-member:hover {
+        transform: translateY(-10px);
+      }
+
+      .member-photo {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: 4px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+          linear-gradient(135deg, #667eea 0%, #9b5de5 100%) border-box;
+        transition: all 0.3s ease;
+      }
+
+      .team-member:hover .member-photo {
+        box-shadow: 0 15px 50px rgba(155, 93, 229, 0.4);
+        transform: scale(1.05);
+      }
+
+      .member-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .member-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: #333;
+        margin: 15px 0 5px;
+        background: #fff;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .member-role {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+
+      /* Responsive Team Section */
+      @media (max-width: 768px) {
+        .impact-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+
+        .impact-icon {
+          width: 60px;
+          height: 60px;
+        }
+
+        .impact-icon svg {
+          width: 30px;
+          height: 30px;
+        }
+
+        .counter {
+          font-size: 36px;
+        }
+
+        .impact-text {
+          font-size: 14px;
+        }
+
+        .team-card {
+          flex: 0 0 180px;
+        }
+
+        .team-photo {
+          width: 180px;
+          height: 180px;
+        }
+
+        .team-full-container {
+          max-height: 600px;
+        }
+
+        .team-full-grid {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 30px;
+          padding: 20px 10px 20px;
+        }
+
+        .member-photo {
+          width: 150px;
+          height: 150px;
+        }
+
+        .member-name {
+          font-size: 18px;
+        }
+
+        .team-full-title {
+          font-size: 24px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .impact-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+      }
+
+      /* News Section */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .news-item {
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .news-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      .news-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .news-content {
+        padding: 20px;
+      }
+
+      .news-content h4 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .news-content p {
+        margin: 0 0 12px;
+        opacity: 0.9;
+        line-height: 1.5;
+      }
+
+      .read-more {
+        color: var(--white-opa);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .read-more:hover {
+        color: var(--nav-bg);
+        text-decoration: underline;
+      }
+
+      /* Support Section */
+      .support-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .support-card {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 18px;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      /* Gradient Apoyar Section - Optimizado */
+      .apoyar-gradient {
+        background: linear-gradient(
+            135deg,
+            rgba(102, 126, 234, 0.85) 0%,
+            rgba(155, 93, 229, 0.85) 30%,
+            rgba(233, 69, 96, 0.85) 70%,
+            rgba(255, 107, 107, 0.85) 100%
+          ),
+          url("../img/FOTOS/grupo-de-diferentes-personas-voluntarias-en-un-banco-de-alimentos.jpg") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        position: relative;
+        padding: 80px 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+      }
+
+      .apoyar-gradient .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .apoyar-title {
+        color: #ffffff !important;
+        text-align: center;
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 16px;
+        letter-spacing: 2px;
+      }
+
+      .apoyar-subtitle {
+        color: #ffffff !important;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 60px;
+        opacity: 0.95;
+      }
+
+      .apoyar-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .apoyar-card {
+        text-align: center;
+        color: #ffffff;
+      }
+
+      .apoyar-card h4 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #ffffff;
+      }
+
+      .apoyar-card p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+        opacity: 0.95;
+        color: #ffffff;
+      }
+
+      /* Contact Section - Optimizado */
+      .section.contact {
+        background: linear-gradient(
+            135deg,
+            rgba(102, 126, 234, 0.75) 0%,
+            rgba(155, 93, 229, 0.75) 50%,
+            rgba(233, 69, 96, 0.75) 100%
+          ),
+          url("../img/FOTOS/trabajadores-de-negocios-de-comercio-electronico-de-hombre-y-mujer-que-trabajan-en-la-oficina.jpg");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+      }
+
+      .contact-form {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .form-row input,
+      .form-row textarea {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        border: 0;
+      }
+
+      .note {
+        opacity: 0.9;
+        margin-top: 6px;
+      }
+
+      /* ========================================
+   FOOTER
+   ======================================== */
+      .site-footer {
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0.2)
+        );
+        padding: 40px 0;
+        margin-top: 0;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-logo {
+        width: 180px;
+        height: auto;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 6px 0;
+      }
+
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+      }
+
+      /* Social Icons Grid */
+      .social-icons-grid {
+        display: flex;
+        gap: 16px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .social-icon::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: 0;
+      }
+
+      .social-icon:hover::before {
+        opacity: 1;
+      }
+
+      .social-icon svg {
+        width: 28px;
+        height: 28px;
+        position: relative;
+        z-index: 1;
+        color: #ffffff;
+        fill: #ffffff;
+        transition: all 0.3s ease;
+      }
+
+      .social-icon:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .social-icon:hover svg {
+        transform: scale(1.1);
+      }
+
+      /* Colores específicos para cada red social */
+      .social-icon.instagram {
+        background: linear-gradient(
+          45deg,
+          #f09433 0%,
+          #e6683c 25%,
+          #dc2743 50%,
+          #cc2366 75%,
+          #bc1888 100%
+        );
+      }
+
+      .social-icon.facebook {
+        background: #1877f2;
+      }
+
+      .social-icon.youtube {
+        background: #ff0000;
+      }
+
+      .social-icon.tiktok {
+        background: linear-gradient(135deg, #00f2ea 0%, #ff0050 100%);
+      }
+
+      .social-icon.instagram:hover {
+        box-shadow: 0 8px 30px rgba(225, 48, 108, 0.5);
+      }
+
+      .social-icon.facebook:hover {
+        box-shadow: 0 8px 30px rgba(24, 119, 242, 0.5);
+      }
+
+      .social-icon.youtube:hover {
+        box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5);
+      }
+
+      .social-icon.tiktok:hover {
+        box-shadow: 0 8px 30px rgba(0, 242, 234, 0.5);
+      }
+
+      .country-logos {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .country-logos a {
+        display: block;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        padding: 8px;
+        transition: transform 0.3s ease;
+      }
+
+      .country-logos a:hover {
+        transform: scale(1.1);
+      }
+
+      .country-logos img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+      @media (max-width: 900px) {
+        .who-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .impact-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .country-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .support-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .apoyar-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .brand-logo {
+          height: 35px;
+        }
+
+        .hero-title {
+          font-size: 32px;
+        }
+
+        .hero-subtitle {
+          font-size: 22px;
+          padding: 10px 24px;
+        }
+
+        .hero-desc {
+          font-size: 16px;
+        }
+
+        .hero-logos {
+          gap: 20px;
+        }
+
+        .hero-logo-item {
+          width: 100px;
+          height: 100px;
+          padding: 18px;
+        }
+
+        .hero-logo-main {
+          width: 140px;
+          height: 140px;
+          padding: 25px;
+        }
+
+        .apoyar-title {
+          font-size: 32px !important;
+        }
+
+        .quienes-hero {
+          padding-left: 20px;
+          padding-right: 20px;
+          padding-top: 100px;
+        }
+
+        .quienes-logo {
+          left: 20px;
+          top: -70px;
+        }
+
+        .quienes-logo img {
+          width: 90px;
+          height: 90px;
+          padding: 15px;
+        }
+
+        .quienes-title {
+          font-size: 36px;
+          letter-spacing: 2px;
+        }
+
+        .quienes-box {
+          padding: 35px 30px;
+        }
+
+        .quienes-box p {
+          font-size: 15px;
+          line-height: 1.7;
+        }
+
+        .quienes-countries {
+          gap: 20px;
+        }
+
+        .quienes-country-logo {
+          width: 80px;
+          height: 80px;
+          padding: 15px;
+        }
+      }
+
+      /* ========================================
+   MODAL STYLES
+   ======================================== */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal[style*="display: flex"] {
+        opacity: 1;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-50px) scale(0.95);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .modal-content {
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(248, 250, 255, 0.98) 100%
+        );
+        margin: 3% auto;
+        padding: 0;
+        width: 90%;
+        max-width: 950px;
+        border-radius: 30px;
+        box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
+        animation: slideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(255, 255, 255, 0.9) 100%
+        );
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        font-size: 32px;
+        font-weight: 300;
+        color: #667eea;
+        cursor: pointer;
+        z-index: 10;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        line-height: 1;
+      }
+
+      .modal-close:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: rotate(90deg) scale(1.15);
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+        border-color: transparent;
+      }
+
+      .modal-body {
+        padding: 0;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+
+      .modal-body::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .modal-body::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+      }
+
+      .modal-body::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+      }
+
+      .modal-image {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        display: block;
+        border-radius: 30px 30px 0 0;
+      }
+
+      .modal-title {
+        font-size: 44px;
+        font-weight: 800;
+        color: #333;
+        margin: 45px 55px 25px;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.5px;
+      }
+
+      .modal-description {
+        padding: 0 55px 55px;
+        font-size: 18px;
+        line-height: 1.9;
+        color: #444;
+      }
+
+      .modal-description h4 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #333;
+        margin-top: 35px;
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .modal-description h4::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 28px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 3px;
+      }
+
+      .modal-description p {
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+
+      .modal-description ul {
+        margin: 20px 0;
+        padding-left: 30px;
+      }
+
+      .modal-description li {
+        margin-bottom: 12px;
+        line-height: 1.8;
+        position: relative;
+        padding-left: 10px;
+      }
+
+      .modal-description li::marker {
+        color: #667eea;
+        font-weight: 600;
+      }
+
+      /* ========================================
+   CAMPOS EMPRESA STYLES
+   ======================================== */
+      .campos-empresa {
+        animation: slideInDown 0.4s ease-out;
+        overflow: hidden;
+      }
+
+      @keyframes slideInDown {
+        from {
+          max-height: 0;
+          opacity: 0;
+        }
+        to {
+          max-height: 500px;
+          opacity: 1;
+        }
+      }
+
+      /* RESPONSIVE MODAL */
+      @media (max-width: 768px) {
+        .modal-content {
+          width: 95%;
+          margin: 10% auto;
+        }
+
+        .modal-image {
+          height: 250px;
+        }
+
+        .modal-title {
+          font-size: 28px;
+          margin: 30px 25px 15px;
+        }
+
+        .modal-description {
+          padding: 0 25px 30px;
+          font-size: 16px;
+        }
+
+        .modal-close {
+          width: 40px;
+          height: 40px;
+          font-size: 28px;
+          top: 15px;
+          right: 15px;
+        }
+      }
+    </style>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
       defer
     ></script>
-    <script src="js/main.js" defer></script>
   </head>
   <body>
     <header class="site-header">
       <nav class="navbar">
         <a href="#hero" class="brand-link">
           <img
-            src="img/3. LOGOS/Latinoamérica Co B.png"
+            src="img/LOGOS/Latinoamérica Co B.png"
             alt="Latinoamérica Comparte"
             class="brand-logo"
           />
@@ -34,6 +1902,11 @@
           <li><a href="#noticias">NOTICIAS</a></li>
           <li><a href="#apoyar">CÓMO APOYAR</a></li>
           <li><a href="#contacto">CONTACTENOS</a></li>
+          <li>
+            <a href="https://www.latinoamericacomparte.com/aulavirtual/"
+              >TU AULA</a
+            >
+          </li>
         </ul>
         <button class="menu-toggle" aria-label="toggle menu">☰</button>
       </nav>
@@ -48,26 +1921,23 @@
 
           <div class="hero-logos">
             <a href="https://colombiacomparte.com" class="hero-logo-item">
-              <img
-                src="img/3. LOGOS/Colombia Co N.png"
-                alt="Colombia Comparte"
-              />
+              <img src="img/LOGOS/Colombia Co N.png" alt="Colombia Comparte" />
             </a>
             <a href="https://ecuadorcomparte.com.co" class="hero-logo-item">
-              <img src="img/3. LOGOS/Ecuador Co N.png" alt="Ecuador Comparte" />
+              <img src="img/LOGOS/Ecuador Co N.png" alt="Ecuador Comparte" />
             </a>
             <a href="#hero" class="hero-logo-item hero-logo-main">
               <img
-                src="img/3. LOGOS/Latinoamérica Co N.png"
+                src="img/LOGOS/Latinoamérica Co N.png"
                 alt="Latinoamérica Comparte"
               />
             </a>
             <a href="https://chilecomparte.com.co" class="hero-logo-item">
-              <img src="img/3. LOGOS/Chile Co N.png" alt="Chile Comparte" />
+              <img src="img/LOGOS/Chile Co N.png" alt="Chile Comparte" />
             </a>
             <a href="https://argentinacomparte.com" class="hero-logo-item">
               <img
-                src="img/3. LOGOS/Argentina Co N.png"
+                src="img/LOGOS/Argentina Co N.png"
                 alt="Argentina Comparte"
               />
             </a>
@@ -92,7 +1962,7 @@
           <div class="quienes-box">
             <div class="quienes-logo">
               <img
-                src="img/3. LOGOS/Latinoamérica Co N.png"
+                src="img/LOGOS/Latinoamérica Co N.png"
                 alt="Latinoamérica Comparte"
               />
             </div>
@@ -116,20 +1986,17 @@
 
           <div class="quienes-countries">
             <div class="quienes-country-logo">
-              <img
-                src="img/3. LOGOS/Colombia Co N.png"
-                alt="Colombia Comparte"
-              />
+              <img src="img/LOGOS/Colombia Co N.png" alt="Colombia Comparte" />
             </div>
             <div class="quienes-country-logo">
-              <img src="img/3. LOGOS/Ecuador Co N.png" alt="Ecuador Comparte" />
+              <img src="img/LOGOS/Ecuador Co N.png" alt="Ecuador Comparte" />
             </div>
             <div class="quienes-country-logo">
-              <img src="img/3. LOGOS/Chile Co N.png" alt="Chile Comparte" />
+              <img src="img/LOGOS/Chile Co N.png" alt="Chile Comparte" />
             </div>
             <div class="quienes-country-logo">
               <img
-                src="img/3. LOGOS/Argentina Co N.png"
+                src="img/LOGOS/Argentina Co N.png"
                 alt="Argentina Comparte"
               />
             </div>
@@ -223,22 +2090,19 @@
             <div class="carousel-track">
               <div class="logo-item">
                 <img
-                  src="img/3. LOGOS/Colombia Co N.png"
+                  src="img/LOGOS/Colombia Co N.png"
                   alt="Colombia Comparte"
                 />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/3. LOGOS/Ecuador Co N.png"
-                  alt="Ecuador Comparte"
-                />
+                <img src="img/LOGOS/Ecuador Co N.png" alt="Ecuador Comparte" />
               </div>
               <div class="logo-item">
-                <img src="img/3. LOGOS/Chile Co N.png" alt="Chile Comparte" />
+                <img src="img/LOGOS/Chile Co N.png" alt="Chile Comparte" />
               </div>
               <div class="logo-item">
                 <img
-                  src="img/3. LOGOS/Argentina Co N.png"
+                  src="img/LOGOS/Argentina Co N.png"
                   alt="Argentina Comparte"
                 />
               </div>
@@ -261,7 +2125,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/foto mentores dic 2024.jpeg"
+                    src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (9).jpeg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -269,7 +2133,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
+                    src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -277,7 +2141,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/IMG-20250606-WA0042.jpg"
+                    src="img/FOTOS/IMG-20250606-WA0042.jpg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -285,7 +2149,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
+                    src="img/FOTOS/IMG-20250606-WA0026.jpg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -293,7 +2157,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/foto mentores dic 2024.jpeg"
+                    src="img/FOTOS/foto mentores dic 2024.jpeg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -301,7 +2165,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
+                    src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -309,7 +2173,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/Evento ACRIP.jpeg"
+                    src="img/FOTOS/people-taking-part-high-protocol-event.jpg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -317,23 +2181,7 @@
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                    alt="Miembro del equipo"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                    alt="Miembro del equipo"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
+                    src="img/FOTOS/foto mentores dic 2024.jpeg"
                     alt="Miembro del equipo"
                   />
                 </div>
@@ -374,464 +2222,168 @@
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="María García"
+                      src="img/FOTOS/EDUARDO DEL CASTILLO.jpeg"
+                      alt="Eduardo Del Castillo"
                     />
                   </div>
-                  <h4 class="member-name">María García</h4>
-                  <p class="member-role">Directora Regional</p>
-                  <p class="member-quote">
-                    "Transformar vidas es nuestra misión diaria"
+                  <h4 class="member-name">Eduardo Del Castillo</h4>
+                  <p class="member-role">
+                    Cofundador y Vicepresidente comercial para Latinoamerica
+                    Comparte
                   </p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Carlos Mendoza"
+                      src="img/FOTOS/CAROLINA RUIZ.jpg"
+                      alt="Carolina Ruiz"
                     />
                   </div>
-                  <h4 class="member-name">Carlos Mendoza</h4>
-                  <p class="member-role">Coordinador de Programas</p>
-                  <p class="member-quote">
-                    "Cada familia que ayudamos es un mundo que cambia"
+                  <h4 class="member-name">Carolina Ruiz</h4>
+                  <p class="member-role">
+                    Cofundadora y CEO para Latinoamérica Comparte
                   </p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Ana Rodríguez"
+                      src="img/FOTOS/MARCELA MORENO.jpeg"
+                      alt="Marcela Moreno"
                     />
                   </div>
-                  <h4 class="member-name">Ana Rodríguez</h4>
-                  <p class="member-role">Líder de Comunicaciones</p>
-                  <p class="member-quote">
-                    "Compartir historias inspira propósito"
+                  <h4 class="member-name">Marcela Moreno</h4>
+                  <p class="member-role">
+                    Directora de Relacionamiento para Colombia y Latinoamérica
                   </p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Jorge Silva"
+                      src="img/FOTOS/ANGIE CASTAÑEDA.jpg"
+                      alt="Angie Castañeda"
                     />
                   </div>
-                  <h4 class="member-name">Jorge Silva</h4>
-                  <p class="member-role">Gerente de Alianzas</p>
-                  <p class="member-quote">
-                    "Juntos construimos un futuro mejor"
+                  <h4 class="member-name">Angie Castañeda</h4>
+                  <p class="member-role">
+                    Coordinadora Académica programa de Emprendimiento Edifica
                   </p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Laura Martínez"
+                      src="img/FOTOS/MARIANA GOMEZ.jpeg"
+                      alt="Mariana Gomez"
                     />
                   </div>
-                  <h4 class="member-name">Laura Martínez</h4>
-                  <p class="member-role">Coach de Emprendimiento</p>
-                  <p class="member-quote">
-                    "El propósito es el motor del éxito"
+                  <h4 class="member-name">Mariana Gomez</h4>
+                  <p class="member-role">Directora de Mercadeo</p>
+                </div>
+                <div class="team-member">
+                  <div class="member-photo">
+                    <img
+                      src="img/FOTOS/NANCY VIVAS.jpeg"
+                      alt="Nancy Vivas"
+                      loading="lazy"
+                    />
+                  </div>
+                  <h4 class="member-name">Nancy Vivas</h4>
+                  <p class="member-role">
+                    Directora de comunicacion y estrategia digital
                   </p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Ricardo Torres"
+                      src="img/FOTOS/ANDREA GAMEZ.jpeg"
+                      alt="Andrea Gamez"
+                      loading="lazy"
                     />
                   </div>
-                  <h4 class="member-name">Ricardo Torres</h4>
-                  <p class="member-role">Analista de Impacto</p>
-                  <p class="member-quote">
-                    "Los datos cuentan historias de transformación"
-                  </p>
+                  <h4 class="member-name">Andrea Gamez</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Patricia Gómez"
+                      src="img/FOTOS/CAROLINA ARISMENDI.jpg"
+                      alt="Carolina Arismendi"
                     />
                   </div>
-                  <h4 class="member-name">Patricia Gómez</h4>
-                  <p class="member-role">Coordinadora de Eventos</p>
-                  <p class="member-quote">
-                    "Cada evento es una oportunidad de inspirar"
-                  </p>
+                  <h4 class="member-name">Carolina Arismendi</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miguel Ángel Ruiz"
+                      src="img/FOTOS/CAROLINA PINILLA.jpg"
+                      alt="Carolina Pinilla"
                     />
                   </div>
-                  <h4 class="member-name">Miguel Ángel Ruiz</h4>
-                  <p class="member-role">Director Financiero</p>
-                  <p class="member-quote">"Sostenibilidad con propósito"</p>
+                  <h4 class="member-name">Carolina Pinilla</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Sofía Vargas"
+                      src="img/FOTOS/CAROLINA TORRES.jpeg"
+                      alt="Carolina Torres"
                     />
                   </div>
-                  <h4 class="member-name">Sofía Vargas</h4>
-                  <p class="member-role">Líder de Capacitación</p>
-                  <p class="member-quote">
-                    "El conocimiento transforma realidades"
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Andrés Castillo"
-                    />
-                  </div>
-                  <h4 class="member-name">Andrés Castillo</h4>
-                  <p class="member-role">Mentor de Familias</p>
-                  <p class="member-quote">
-                    "Acompañar es nuestra mayor fortaleza"
-                  </p>
+                  <h4 class="member-name">Carolina Torres</h4>
+                  <p class="member-role">COACH</p>
                 </div>
 
                 <!-- Miembros 11-40 (puedes actualizar con fotos y datos reales) -->
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 11"
+                      src="img/FOTOS/DOUGLAS OLAYA.png"
+                      alt="Douglas Olaya"
                     />
                   </div>
-                  <h4 class="member-name">Valentina Herrera</h4>
-                  <p class="member-role">Coordinadora Colombia</p>
-                  <p class="member-quote">"Cada día es una oportunidad"</p>
+                  <h4 class="member-name">Douglas Olaya</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 12"
+                      src="img/FOTOS/GLADYS TORRADO.jpeg"
+                      alt="Gladys Torrado"
                     />
                   </div>
-                  <h4 class="member-name">Felipe Ramírez</h4>
-                  <p class="member-role">Coordinador Ecuador</p>
-                  <p class="member-quote">"Unidos por un propósito común"</p>
+                  <h4 class="member-name">Gladys Torrado</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 13"
+                      src="img/FOTOS/LUZ AMELIA AMADO.jpg"
+                      alt="Luz Amelia"
                     />
                   </div>
-                  <h4 class="member-name">Camila Ortiz</h4>
-                  <p class="member-role">Coordinadora Chile</p>
-                  <p class="member-quote">"La pasión mueve montañas"</p>
+                  <h4 class="member-name">Luz Amelia</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 14"
+                      src="img/FOTOS/MABEL OCAMPO.jpg"
+                      alt="Mabel ocampo"
+                      loading="lazy"
                     />
                   </div>
-                  <h4 class="member-name">Lucas Fernández</h4>
-                  <p class="member-role">Coordinador Argentina</p>
-                  <p class="member-quote">"Transformamos con amor"</p>
+                  <h4 class="member-name">Mabel Ocampo</h4>
+                  <p class="member-role">COACH</p>
                 </div>
                 <div class="team-member">
                   <div class="member-photo">
                     <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 15"
+                      src="img/FOTOS/MARTHA MORDECAI.jpg"
+                      alt="Martha Mordecai"
                     />
                   </div>
-                  <h4 class="member-name">Isabella Moreno</h4>
-                  <p class="member-role">Especialista en Capacitación</p>
-                  <p class="member-quote">"El aprendizaje nunca termina"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 16"
-                    />
-                  </div>
-                  <h4 class="member-name">Mateo Sánchez</h4>
-                  <p class="member-role">Analista de Datos</p>
-                  <p class="member-quote">"Los números hablan verdades"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 17"
-                    />
-                  </div>
-                  <h4 class="member-name">Daniela Castro</h4>
-                  <p class="member-role">Gestora de Proyectos</p>
-                  <p class="member-quote">"Organización es la clave"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 18"
-                    />
-                  </div>
-                  <h4 class="member-name">Sebastián Rojas</h4>
-                  <p class="member-role">Comunicador Social</p>
-                  <p class="member-quote">"Cada historia importa"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 19"
-                    />
-                  </div>
-                  <h4 class="member-name">Mariana López</h4>
-                  <p class="member-role">Asesora Legal</p>
-                  <p class="member-quote">"Justicia con propósito"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 20"
-                    />
-                  </div>
-                  <h4 class="member-name">Diego Méndez</h4>
-                  <p class="member-role">Diseñador Gráfico</p>
-                  <p class="member-quote">"El diseño inspira cambio"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 21"
-                    />
-                  </div>
-                  <h4 class="member-name">Gabriela Vargas</h4>
-                  <p class="member-role">Psicóloga Organizacional</p>
-                  <p class="member-quote">"El bienestar es fundamental"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 22"
-                    />
-                  </div>
-                  <h4 class="member-name">Nicolás Cruz</h4>
-                  <p class="member-role">Desarrollador Web</p>
-                  <p class="member-quote">"La tecnología transforma"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 23"
-                    />
-                  </div>
-                  <h4 class="member-name">Juliana Reyes</h4>
-                  <p class="member-role">Asistente Administrativa</p>
-                  <p class="member-quote">"El detalle hace la diferencia"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 24"
-                    />
-                  </div>
-                  <h4 class="member-name">Santiago Paredes</h4>
-                  <p class="member-role">Contador</p>
-                  <p class="member-quote">"Transparencia ante todo"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 25"
-                    />
-                  </div>
-                  <h4 class="member-name">Catalina Ruiz</h4>
-                  <p class="member-role">Especialista en RSE</p>
-                  <p class="member-quote">"Responsabilidad es progreso"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 26"
-                    />
-                  </div>
-                  <h4 class="member-name">Emilio Gutiérrez</h4>
-                  <p class="member-role">Coach Ejecutivo</p>
-                  <p class="member-quote">"El liderazgo se construye"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 27"
-                    />
-                  </div>
-                  <h4 class="member-name">Victoria Navarro</h4>
-                  <p class="member-role">Gestora de Voluntarios</p>
-                  <p class="member-quote">"Juntos somos más fuertes"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 28"
-                    />
-                  </div>
-                  <h4 class="member-name">Rodrigo Flores</h4>
-                  <p class="member-role">Fotógrafo</p>
-                  <p class="member-quote">"Capturamos momentos de esperanza"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 29"
-                    />
-                  </div>
-                  <h4 class="member-name">Amanda Silva</h4>
-                  <p class="member-role">Estratega Digital</p>
-                  <p class="member-quote">"El futuro es digital"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 30"
-                    />
-                  </div>
-                  <h4 class="member-name">Javier Medina</h4>
-                  <p class="member-role">Logística y Operaciones</p>
-                  <p class="member-quote">"La eficiencia salva vidas"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 31"
-                    />
-                  </div>
-                  <h4 class="member-name">Carolina Ríos</h4>
-                  <p class="member-role">Gestora Cultural</p>
-                  <p class="member-quote">"La cultura nos une"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 32"
-                    />
-                  </div>
-                  <h4 class="member-name">Tomás Vega</h4>
-                  <p class="member-role">Mentor de Jóvenes</p>
-                  <p class="member-quote">"La juventud es el futuro"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 33"
-                    />
-                  </div>
-                  <h4 class="member-name">Lucía Peña</h4>
-                  <p class="member-role">Especialista en Género</p>
-                  <p class="member-quote">"Igualdad es dignidad"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 34"
-                    />
-                  </div>
-                  <h4 class="member-name">Pablo Acosta</h4>
-                  <p class="member-role">Auditor Interno</p>
-                  <p class="member-quote">"La integridad no se negocia"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 35"
-                    />
-                  </div>
-                  <h4 class="member-name">Fernanda Campos</h4>
-                  <p class="member-role">Relacionista Pública</p>
-                  <p class="member-quote">
-                    "Las relaciones construyen puentes"
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 36"
-                    />
-                  </div>
-                  <h4 class="member-name">Andrés Molina</h4>
-                  <p class="member-role">Especialista en Fundraising</p>
-                  <p class="member-quote">"Cada aporte multiplica impacto"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                      alt="Miembro 37"
-                    />
-                  </div>
-                  <h4 class="member-name">Natalia Romero</h4>
-                  <p class="member-role">Coach de Bienestar</p>
-                  <p class="member-quote">"La salud integral transforma"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/people-taking-part-high-protocol-event.jpg"
-                      alt="Miembro 38"
-                    />
-                  </div>
-                  <h4 class="member-name">Eduardo Jiménez</h4>
-                  <p class="member-role">Investigador Social</p>
-                  <p class="member-quote">"El conocimiento empodera"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/foto mentores dic 2024.jpeg"
-                      alt="Miembro 39"
-                    />
-                  </div>
-                  <h4 class="member-name">Alejandra Torres</h4>
-                  <p class="member-role">Coordinadora de Alianzas</p>
-                  <p class="member-quote">"La colaboración es poder"</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/5. FOTOS/Evento ACRIP.jpeg"
-                      alt="Miembro 40"
-                    />
-                  </div>
-                  <h4 class="member-name">Manuel Delgado</h4>
-                  <p class="member-role">Supervisor de Campo</p>
-                  <p class="member-quote">"En el terreno está la verdad"</p>
+                  <h4 class="member-name">Martha Mordecai</h4>
+                  <p class="member-role">COACH</p>
                 </div>
               </div>
             </div>
@@ -845,8 +2397,9 @@
           <div class="news-grid">
             <article class="news-item">
               <img
-                src="img/5. FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
+                src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
                 alt="Historias que inspiran"
+                loading="lazy"
               />
               <div class="news-content">
                 <h4>Historias que inspiran</h4>
@@ -859,7 +2412,7 @@
             </article>
             <article class="news-item">
               <img
-                src="img/5. FOTOS/IMG-20241129-WA0006.jpg"
+                src="img/FOTOS/IMG-20241129-WA0006.jpg"
                 alt="Noticias corporativas"
               />
               <div class="news-content">
@@ -870,7 +2423,7 @@
             </article>
             <article class="news-item">
               <img
-                src="img/5. FOTOS/SESION VOCES EMPRENDEDORAS 18 DE MARZO Tu voz tu poder  Carolina Ruiz.jpeg"
+                src="img/FOTOS/SESION VOCES EMPRENDEDORAS 18 DE MARZO Tu voz tu poder  Carolina Ruiz.jpeg"
                 alt="Eventos"
               />
               <div class="news-content">
@@ -948,18 +2501,6 @@
                 />
                 <input type="text" name="cargo" placeholder="Cargo" />
               </div>
-              <div class="form-row">
-                <input
-                  type="text"
-                  name="sector"
-                  placeholder="Sector/Industria"
-                />
-                <input
-                  type="number"
-                  name="numEmpleados"
-                  placeholder="Número de Empleados"
-                />
-              </div>
             </div>
 
             <div class="form-row">
@@ -999,7 +2540,7 @@
       <div class="container footer-grid">
         <div class="footer-brand">
           <img
-            src="img/3. LOGOS/Latinoamérica Co B.png"
+            src="img/LOGOS/Latinoamérica Co B.png"
             alt="Latinoamérica Comparte"
             class="footer-logo"
           />
@@ -1091,5 +2632,360 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // Animaciones con Anime.js y comportamiento interactivo
+      document.addEventListener("DOMContentLoaded", function () {
+        // Navbar scroll effect con throttle para mejor rendimiento
+        const header = document.querySelector(".site-header");
+        let ticking = false;
+        window.addEventListener("scroll", () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              if (window.scrollY > 100) {
+                header.classList.add("scrolled");
+              } else {
+                header.classList.remove("scrolled");
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+
+        // Hero entrance - optimizado para cargar más rápido
+        anime
+          .timeline({})
+          .add({
+            targets: ".hero-title",
+            translateY: [30, 0],
+            opacity: [0, 1],
+            duration: 600,
+            easing: "easeOutQuad",
+          })
+          .add(
+            {
+              targets: ".hero-subtitle, .hero-desc",
+              opacity: [0, 1],
+              duration: 500,
+              easing: "easeOutQuad",
+            },
+            "-=300"
+          )
+          .add(
+            {
+              targets: ".hero-cta .btn",
+              opacity: [0, 1],
+              duration: 400,
+              easing: "easeOutQuad",
+            },
+            "-=200"
+          );
+
+        // Logo circle sin animación infinita para mejor rendimiento
+
+        // Counters con animación simple y eficiente
+        const counters = document.querySelectorAll(".counter");
+        const observerOptions = { threshold: 0.5, rootMargin: "50px" };
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (
+              entry.isIntersecting &&
+              !entry.target.classList.contains("counted")
+            ) {
+              entry.target.classList.add("counted");
+              const target = +entry.target.dataset.target;
+              let current = 0;
+              const increment = target / 60; // 60 frames para 1 segundo
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  entry.target.textContent = target;
+                  clearInterval(timer);
+                } else {
+                  entry.target.textContent = Math.floor(current);
+                }
+              }, 16); // ~60fps
+              counterObserver.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        counters.forEach((c) => counterObserver.observe(c));
+
+        // Simple smooth scroll for nav links - only for anchor links on same page
+        document.querySelectorAll(".nav-links a").forEach((a) => {
+          a.addEventListener("click", (e) => {
+            const href = a.getAttribute("href");
+            // Only prevent default for anchor links (starting with #)
+            if (href && href.startsWith("#")) {
+              e.preventDefault();
+              const el = document.querySelector(href);
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }
+            // For other links (.html files), let the browser handle navigation normally
+          });
+        });
+
+        // Mobile menu toggle
+        const toggle = document.querySelector(".menu-toggle");
+        toggle.addEventListener("click", () => {
+          const links = document.querySelector(".nav-links");
+          links.style.display =
+            links.style.display === "flex" ? "none" : "flex";
+          links.style.flexDirection = "column";
+        });
+
+        // Carrusel usa animación CSS para mejor rendimiento
+
+        // Country click handler - optimizado
+        document.querySelectorAll(".country").forEach((c) => {
+          c.addEventListener("click", (e) => {
+            const href = c.getAttribute("href");
+            if (!href || href === "#") {
+              e.preventDefault();
+            }
+            // La animación se maneja con CSS hover
+          });
+        });
+
+        // Section animations on scroll - optimizado con CSS transitions
+        const sections = document.querySelectorAll(".section");
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+                sectionObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "50px" }
+        );
+
+        sections.forEach((s) => {
+          s.style.opacity = "0";
+          s.style.transform = "translateY(30px)";
+          s.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          sectionObserver.observe(s);
+        });
+
+        // Modal de Noticias
+        const newsContent = {
+          1: {
+            title: "Historias que inspiran",
+            image:
+              "img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg",
+            description: `
+        <p>En Latinoamérica Comparte, cada historia es una prueba de que la transformación personal conduce a la transformación empresarial. Nuestros programas han impactado a más de 1,200 familias en toda la región, ayudándolas a recuperar su productividad y esperanza.</p>
+        
+        <h4>Emprendedores que transforman</h4>
+        <p>Conoce las historias de personas que, después de enfrentar pérdidas significativas, encontraron en nuestros programas el apoyo necesario para reconstruir sus vidas y emprendimientos. Desde pequeños negocios familiares hasta empresas que hoy emplean a decenas de personas, cada caso es único y motivador.</p>
+        
+        <h4>Impacto real en comunidades</h4>
+        <p>Nuestros emprendedores no solo reconstruyen sus propias vidas, sino que también generan empleo y desarrollo en sus comunidades. A través de:</p>
+        <ul>
+          <li>Programas de capacitación en emprendimiento con propósito</li>
+          <li>Acompañamiento personalizado por 12 meses</li>
+          <li>Acceso a redes de mentores y empresarios exitosos</li>
+          <li>Financiamiento inicial para proyectos sostenibles</li>
+        </ul>
+        
+        <p>Cada mes compartimos nuevas historias de éxito que demuestran que cuando una persona encuentra su propósito, puede transformar no solo su vida, sino toda su comunidad.</p>
+      `,
+          },
+          2: {
+            title: "Noticias corporativas",
+            image: "img/FOTOS/Copia de foto22.jpeg",
+            description: `
+        <p>Latinoamérica Comparte continúa expandiendo su red de impacto a través de nuevas alianzas estratégicas con empresas líderes en la región. Nuestro compromiso con el bienestar empresarial y la productividad con propósito nos ha llevado a establecer colaboraciones innovadoras.</p>
+        
+        <h4>Nuevas alianzas estratégicas</h4>
+        <p>Este año hemos sumado a nuestra red más de 15 empresas comprometidas con el bienestar de sus colaboradores. Estas alianzas nos permiten:</p>
+        <ul>
+          <li>Implementar programas de bienestar corporativo personalizados</li>
+          <li>Desarrollar cultura organizacional orientada al propósito</li>
+          <li>Ofrecer acompañamiento a colaboradores en situaciones de duelo o pérdida</li>
+          <li>Crear redes de apoyo entre empresas de diferentes sectores</li>
+        </ul>
+        
+        <h4>Expansión regional</h4>
+        <p>Después del éxito en Colombia, Ecuador, Chile y Argentina, estamos evaluando expandir nuestras operaciones a Perú y México en el próximo año. Cada país que se suma a esta red multiplica el impacto positivo en la región.</p>
+        
+        <h4>Reconocimientos</h4>
+        <p>Recientemente fuimos reconocidos por ACRIP como uno de los programas más innovadores en bienestar corporativo en Latinoamérica, destacando nuestro enfoque integral que combina el desarrollo personal con la productividad empresarial.</p>
+      `,
+          },
+          3: {
+            title: "Eventos y conferencias",
+            image: "img/FOTOS/people-taking-part-high-protocol-event.jpg",
+            description: `
+        <p>Nuestros eventos "Red que Transforma" se han convertido en espacios de inspiración, aprendizaje y conexión para líderes empresariales, emprendedores y profesionales de toda Latinoamérica.</p>
+        
+        <h4>Red que Transforma 2025</h4>
+        <p>Nuestro evento insignia reunirá en cada país a más de 500 líderes empresariales para compartir experiencias, estrategias y casos de éxito sobre:</p>
+        <ul>
+          <li>Liderazgo con propósito en tiempos de cambio</li>
+          <li>Cultura organizacional que prioriza el bienestar</li>
+          <li>Innovación en programas de desarrollo humano</li>
+          <li>Resiliencia empresarial y transformación personal</li>
+        </ul>
+        
+        <h4>Top Speakers internacionales</h4>
+        <p>Contamos con la participación de reconocidos conferencistas y líderes de pensamiento de toda la región, incluyendo CEOs de empresas Fortune 500, emprendedores sociales y expertos en desarrollo humano y organizacional.</p>
+        
+        <h4>Próximos eventos</h4>
+        <p><strong>Bogotá, Colombia:</strong> 15 de marzo, 2025<br>
+        <strong>Quito, Ecuador:</strong> 22 de abril, 2025<br>
+        <strong>Santiago, Chile:</strong> 10 de junio, 2025<br>
+        <strong>Buenos Aires, Argentina:</strong> 18 de agosto, 2025</p>
+        
+        <p>Cada evento incluye talleres prácticos, sesiones de networking y oportunidades de crear alianzas estratégicas con empresas y líderes de diferentes sectores.</p>
+      `,
+          },
+        };
+
+        // Modal de Noticias - Abrir y cerrar
+        const modal = document.getElementById("newsModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalImage = document.getElementById("modalImage");
+        const modalDescription = document.getElementById("modalDescription");
+        const closeModal = document.querySelector(".modal-close");
+
+        // Abrir modal al hacer click en "Ver más"
+        document.querySelectorAll(".read-more").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const newsId = btn.getAttribute("data-news");
+            const content = newsContent[newsId];
+
+            if (content && modal) {
+              modalTitle.textContent = content.title;
+              modalImage.src = content.image;
+              modalImage.alt = content.title;
+              modalDescription.innerHTML = content.description;
+
+              modal.style.display = "flex";
+              // Usar CSS transitions en lugar de Anime.js
+              requestAnimationFrame(() => {
+                modal.style.opacity = "1";
+              });
+            }
+          });
+        });
+
+        // Cerrar modal al hacer click en X
+        if (closeModal) {
+          closeModal.addEventListener("click", () => {
+            modal.style.opacity = "0";
+            setTimeout(() => {
+              modal.style.display = "none";
+            }, 300);
+          });
+        }
+
+        // Cerrar modal al hacer click fuera del contenido
+        if (modal) {
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+              modal.style.opacity = "0";
+              setTimeout(() => {
+                modal.style.display = "none";
+              }, 300);
+            }
+          });
+        }
+
+        // Cerrar modal con la tecla ESC
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal && modal.style.display === "flex") {
+            modal.style.opacity = "0";
+            setTimeout(() => {
+              modal.style.display = "none";
+            }, 300);
+          }
+        });
+
+        // Mostrar campos adicionales del formulario para empresas
+        const empresaBtn = document.getElementById("empresaInfoBtn");
+        const camposEmpresa = document.getElementById("camposEmpresa");
+
+        if (empresaBtn && camposEmpresa) {
+          empresaBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            // Scroll al formulario
+            document
+              .getElementById("contacto")
+              .scrollIntoView({ behavior: "smooth" });
+
+            // Mostrar campos adicionales
+            setTimeout(() => {
+              camposEmpresa.style.display = "block";
+              camposEmpresa.style.opacity = "0";
+              requestAnimationFrame(() => {
+                camposEmpresa.style.transition = "opacity 0.6s ease";
+                camposEmpresa.style.opacity = "1";
+              });
+            }, 300);
+          });
+        }
+
+        // Envío del formulario
+        const contactForm = document.querySelector(".contact-form");
+        if (contactForm) {
+          contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert(
+              "Gracias por contactarnos. Pronto nos pondremos en contacto contigo."
+            );
+            contactForm.reset();
+            if (camposEmpresa) camposEmpresa.style.display = "none";
+          });
+        }
+
+        // Duplicar elementos del carrusel para efecto infinito - solo si es necesario
+        const teamCarousel = document.querySelector(".team-carousel");
+        if (teamCarousel && teamCarousel.children.length < 10) {
+          const cards = teamCarousel.innerHTML;
+          teamCarousel.innerHTML = cards + cards;
+        }
+
+        // Botón "Conócelos a todos" - Expandir/Colapsar equipo completo
+        const verEquipoBtn = document.getElementById("verEquipoCompleto");
+        const equipoCompleto = document.getElementById("equipoCompleto");
+        const btnText = document.getElementById("btnText");
+        const btnIcon = document.getElementById("btnIcon");
+
+        if (verEquipoBtn && equipoCompleto) {
+          verEquipoBtn.addEventListener("click", () => {
+            const isVisible = equipoCompleto.style.display === "block";
+
+            if (isVisible) {
+              // Colapsar con CSS
+              equipoCompleto.style.opacity = "0";
+              equipoCompleto.style.maxHeight = "0";
+              setTimeout(() => {
+                equipoCompleto.style.display = "none";
+              }, 600);
+              btnText.textContent = "Conócelos a todos";
+              btnIcon.style.transform = "rotate(0deg)";
+            } else {
+              // Expandir con CSS
+              equipoCompleto.style.display = "block";
+              equipoCompleto.style.transition =
+                "opacity 0.6s ease, max-height 0.6s ease";
+              btnIcon.style.transition = "transform 0.3s ease";
+              requestAnimationFrame(() => {
+                equipoCompleto.style.opacity = "1";
+                equipoCompleto.style.maxHeight = "5000px";
+              });
+              btnText.textContent = "Ver menos";
+              btnIcon.style.transform = "rotate(180deg)";
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
