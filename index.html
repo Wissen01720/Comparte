@@ -67,49 +67,8 @@
             color: #E84C3D;
         }
 
-        /* Header/Navbar Legacy - para compatibilidad */
-        header {
-            background: white;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
         body {
             margin-top: 80px;
-        }
-
-        .logo {
-            font-weight: 700;
-            color: #E84C3D;
-            font-size: 20px;
-        }
-
-        nav {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #5B4B8A;
-            font-weight: 400;
-            font-size: 16px;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            color: #E84C3D;
         }
 
         /* Hero Section */
@@ -142,7 +101,6 @@
             background-repeat: no-repeat;
             opacity: 0.6;
             z-index: 0;
-            filter: blur(2px);
             pointer-events: none;
         }
 
@@ -193,6 +151,7 @@
             flex-direction: column;
             justify-content: center;
             position: relative;
+            will-change: opacity, transform;
         }
 
         /* Secciones visibles al scroll */
@@ -215,9 +174,8 @@
             background-position: center center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            opacity: 1;
+            opacity: 0.3;
             z-index: 0;
-            filter: blur(1px);
             pointer-events: none;
         }
 
@@ -388,6 +346,7 @@
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
             border: 2px solid transparent;
+            will-change: transform, box-shadow;
         }
 
         .pais-card:hover {
@@ -416,6 +375,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
+            will-change: transform, box-shadow;
         }
 
         .noticia-card:hover {
@@ -495,6 +455,7 @@
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            will-change: transform, box-shadow;
         }
 
         .programa-card:hover {
@@ -1307,8 +1268,8 @@
         }
 
         .footer-logo-image {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             background-size: contain;
             background-repeat: no-repeat;
         }
@@ -1483,7 +1444,7 @@
             <a href="#programas">Programas</a>
             <a href="#actualidad">Actualidad</a>
             <a href="#contacto">Contacto</a>
-            <a href="https://www.latinoamericacomparte.com/aulavirtual/" target="_blank">Mi aula</a>
+            <a href="https://www.latinoamericacomparte.com/aulavirtual/" target="_blank">Tu aula</a>
         </nav>
     </header>
 
@@ -1716,16 +1677,6 @@
             window.location.hash = '';
         }
         
-        document.addEventListener('DOMContentLoaded', function() {
-            // Pequeño delay para que se vea la transición
-            setTimeout(() => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }, 100);
-        });
-
         // ========== INTERSECTION OBSERVER PARA ANIMACIONES ==========
         const observerOptions = {
             threshold: 0.1,
@@ -1736,77 +1687,92 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible-section');
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        // Observar todas las secciones al cargar
-        document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar cuando DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPage);
+        } else {
+            initPage();
+        }
+
+        function initPage() {
+            // Scroll al inicio
+            window.scrollTo({
+                top: 0,
+                behavior: 'auto'
+            });
+
+            // Observar secciones
             const sections = document.querySelectorAll('.site-section');
-            
             sections.forEach((section, index) => {
                 if (index === 0) {
-                    // La primera sección (Inicio) se anima automáticamente
                     section.classList.add('visible-section');
                 } else {
-                    // Las demás se animan cuando entran en viewport
                     observer.observe(section);
                 }
             });
-        });
+
+            // Modal
+            setupModal();
+        }
+
+        function setupModal() {
+            const modal = document.getElementById('programasModal');
+            const closeBtn = document.querySelector('.modal-close');
+            const programBtns = document.querySelectorAll('.programa-btn');
+
+            const programasData = {
+                edifica: {
+                    title: 'Programa Edifica',
+                    description: 'Altos Estudios en Emprendimiento',
+                    details: 'Este programa te proporciona herramientas y conocimientos para emprender y desarrollar tu propio negocio. Aprenderás sobre planificación estratégica, finanzas, marketing digital y más. Ideal para profesionales que desean iniciar su propio camino empresarial.'
+                },
+                deportados: {
+                    title: 'Programa Edifica Deportados',
+                    description: 'Para deportistas en transición',
+                    details: 'Diseñado especialmente para deportistas que buscan una segunda carrera profesional. Combinamos el conocimiento empresarial con el mentalidad ganadora de los atletas para crear líderes empresariales únicos.'
+                },
+                shows: {
+                    title: 'Shows y Conferencias',
+                    description: 'Eventos inspiradores y educativos',
+                    details: 'Participá en eventos donde conectamos talento, ideas y oportunidades. Escucha historias de emprendedores exitosos, conéctate con profesionales de tu industria y expande tu red de contactos.'
+                }
+            };
+
+            programBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const programa = this.getAttribute('data-programa');
+                    const data = programasData[programa];
+                    
+                    document.getElementById('modalTitle').textContent = data.title;
+                    document.getElementById('modalDescription').textContent = data.description;
+                    document.getElementById('modalDetails').textContent = data.details;
+                    
+                    modal.classList.add('show');
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('show');
+            });
+
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        }
 
         function enviarFormulario(event) {
             event.preventDefault();
             alert('Gracias por tu mensaje. Uno de nuestros gerentes regionales se pondrá en contacto contigo pronto.');
             event.target.reset();
         }
-
-        // Modal de Programas
-        const modal = document.getElementById('programasModal');
-        const closeBtn = document.querySelector('.modal-close');
-        const programBtns = document.querySelectorAll('.programa-btn');
-
-        const programasData = {
-            edifica: {
-                title: 'Programa Edifica',
-                description: 'Altos Estudios en Emprendimiento',
-                details: 'Este programa te proporciona herramientas y conocimientos para emprender y desarrollar tu propio negocio. Aprenderás sobre planificación estratégica, finanzas, marketing digital y más. Ideal para profesionales que desean iniciar su propio camino empresarial.'
-            },
-            deportados: {
-                title: 'Programa Edifica Deportados',
-                description: 'Para deportistas en transición',
-                details: 'Diseñado especialmente para deportistas que buscan una segunda carrera profesional. Combinamos el conocimiento empresarial con el mentalidad ganadora de los atletas para crear líderes empresariales únicos.'
-            },
-            shows: {
-                title: 'Shows y Conferencias',
-                description: 'Eventos inspiradores y educativos',
-                details: 'Participá en eventos donde conectamos talento, ideas y oportunidades. Escucha historias de emprendedores exitosos, conéctate con profesionales de tu industria y expande tu red de contactos.'
-            }
-        };
-
-        programBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const programa = this.getAttribute('data-programa');
-                const data = programasData[programa];
-                
-                document.getElementById('modalTitle').textContent = data.title;
-                document.getElementById('modalDescription').textContent = data.description;
-                document.getElementById('modalDetails').textContent = data.details;
-                
-                modal.classList.add('show');
-            });
-        });
-
-        closeBtn.addEventListener('click', function() {
-            modal.classList.remove('show');
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-            }
-        });
     </script>
 </body>
 </html>
