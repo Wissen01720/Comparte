@@ -841,49 +841,31 @@
       .team-carousel {
         display: flex;
         gap: 30px;
-        animation: scrollTeam 20s linear infinite;
         will-change: transform;
-        -webkit-animation: scrollTeam 20s linear infinite;
-      }
-      @keyframes scrollTeam {
-        0% {
-          transform: translateX(0) translateZ(0);
-          -webkit-transform: translateX(0) translateZ(0);
-        }
-        100% {
-          transform: translateX(-50%) translateZ(0);
-          -webkit-transform: translateX(-50%) translateZ(0);
-        }
-      }
-      @-webkit-keyframes scrollTeam {
-        0% {
-          -webkit-transform: translateX(0) translateZ(0);
-        }
-        100% {
-          -webkit-transform: translateX(-50%) translateZ(0);
-        }
-      }
-      .team-carousel:hover {
-        animation-play-state: paused;
       }
       .team-card {
         flex: 0 0 250px;
-        transition: all 0.3s ease;
+        flex-shrink: 0;
         will-change: transform;
       }
-      .team-card:hover {
-        transform: translateY(-10px) scale(1.05) translateZ(0);
-        -webkit-transform: translateY(-10px) scale(1.05) translateZ(0);
+      .team-card:hover .team-photo {
+        transform: scale(1.05) translateZ(0);
+        -webkit-transform: scale(1.05) translateZ(0);
+        transition: transform 0.3s ease;
       }
       .team-photo {
         width: 250px;
         height: 250px;
-        border-radius: 50%;
+        border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         border: 5px solid rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
         will-change: box-shadow, border-color;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+        padding: 0;
       }
       .team-card:hover .team-photo {
         box-shadow: 0 20px 60px rgba(155, 93, 229, 0.5);
@@ -1117,14 +1099,6 @@
           transform: scale(1.05) translateZ(0);
           -webkit-transform: scale(1.05) translateZ(0);
         }
-        .team-carousel {
-          animation-duration: 30s;
-          -webkit-animation-duration: 30s;
-        }
-        .carousel-track {
-          animation-duration: 60s;
-          -webkit-animation-duration: 60s;
-        }
         .site-header {
           backdrop-filter: blur(10px) saturate(150%);
           -webkit-backdrop-filter: blur(10px) saturate(150%);
@@ -1150,9 +1124,11 @@
           animation-duration: 0.5s !important;
           transition-duration: 0.2s !important;
         }
-        .team-carousel,
         .carousel-track {
           animation-duration: 60s !important;
+        }
+        .team-carousel {
+          animation-duration: 10s !important;
         }
       }
       .section {
@@ -2056,64 +2032,72 @@
                 <div class="team-photo">
                   <img
                     src="img/FOTOS/EDUARDO DEL CASTILLO.jpeg"
-                    alt="Miembro del equipo"
+                    alt="Eduardo Del Castillo"
+                  />
+                  <img src="img/FOTOS/CAROLINA RUIZ.jpg" alt="Carolina Ruiz" />
+                </div>
+              </div>
+              <div class="team-card">
+                <div class="team-photo">
+                  <img
+                    src="img/FOTOS/MARCELA MORENO.jpeg"
+                    alt="Marcela Moreno"
+                  />
+                  <img
+                    src="img/FOTOS/ANGIE CASTAÑEDA.jpg"
+                    alt="Angie Castañeda"
+                  />
+                </div>
+              </div>
+              <div class="team-card">
+                <div class="team-photo">
+                  <img src="img/FOTOS/MARIANA GOMEZ.jpeg" alt="Mariana Gomez" />
+                  <img src="img/FOTOS/NANCY VIVAS.jpeg" alt="Nancy Vivas" />
+                </div>
+              </div>
+              <div class="team-card">
+                <div class="team-photo">
+                  <img src="img/FOTOS/ANDREA GAMEZ.jpeg" alt="Andrea Gamez" />
+                  <img
+                    src="img/FOTOS/CAROLINA ARISMENDI.jpg"
+                    alt="Carolina Arismendi"
                   />
                 </div>
               </div>
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/FOTOS/CAROLINA RUIZ.jpg"
-                    alt="Miembro del equipo"
+                    src="img/FOTOS/CAROLINA PINILLA.jpg"
+                    alt="Carolina Pinilla"
+                  />
+                  <img
+                    src="img/FOTOS/CAROLINA TORRES.jpeg"
+                    alt="Carolina Torres"
                   />
                 </div>
               </div>
               <div class="team-card">
                 <div class="team-photo">
+                  <img src="img/FOTOS/DOUGLAS OLAYA.png" alt="Douglas Olaya" />
                   <img
-                    src="img/FOTOS/IMG-20250606-WA0042.jpg"
-                    alt="Miembro del equipo"
+                    src="img/FOTOS/GLADYS TORRADO.jpeg"
+                    alt="Gladys Torrado"
                   />
                 </div>
               </div>
               <div class="team-card">
                 <div class="team-photo">
-                  <img
-                    src="img/FOTOS/IMG-20250606-WA0026.jpg"
-                    alt="Miembro del equipo"
-                  />
+                  <img src="img/FOTOS/LUZ AMELIA AMADO.jpg" alt="Luz Amelia" />
+                  <img src="img/FOTOS/MABEL OCAMPO.jpg" alt="Mabel Ocampo" />
                 </div>
               </div>
               <div class="team-card">
                 <div class="team-photo">
                   <img
-                    src="img/FOTOS/foto mentores dic 2024.jpeg"
-                    alt="Miembro del equipo"
+                    src="img/FOTOS/MARTHA MORDECAI.jpg"
+                    alt="Martha Mordecai"
                   />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                    alt="Miembro del equipo"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/people-taking-part-high-protocol-event.jpg"
-                    alt="Miembro del equipo"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/foto mentores dic 2024.jpeg"
-                    alt="Miembro del equipo"
-                  />
+                  <img src="img/FOTOS/foto mentores dic 2024.jpeg" />
                 </div>
               </div>
             </div>
@@ -2826,12 +2810,36 @@
         const teamCarousel = document.querySelector(".team-carousel");
         if (teamCarousel) {
           const currentCards = Array.from(teamCarousel.children);
-          if (currentCards.length < 10) {
-            currentCards.forEach((card) => {
-              const clone = card.cloneNode(true);
-              teamCarousel.appendChild(clone);
-            });
+          // Duplicar las tarjetas una vez para el loop continuo
+          currentCards.forEach((card) => {
+            const clone = card.cloneNode(true);
+            teamCarousel.appendChild(clone);
+          });
+          let scrollPosition = 0;
+          const scrollSpeed = 0.8;
+          let isPaused = false;
+          function animateCarousel() {
+            if (!isPaused) {
+              scrollPosition += scrollSpeed;
+              // Calcular el ancho de un set de tarjetas
+              const cardWidth = 250 + 30; // ancho + gap
+              const setWidth = cardWidth * currentCards.length;
+              // Resetear cuando completamos un ciclo completo
+              if (scrollPosition >= setWidth) {
+                scrollPosition = 0;
+              }
+              teamCarousel.style.transform = `translateX(-${scrollPosition}px)`;
+            }
+            requestAnimationFrame(animateCarousel);
           }
+          // Pausar al hacer hover
+          teamCarousel.addEventListener("mouseenter", () => {
+            isPaused = true;
+          });
+          teamCarousel.addEventListener("mouseleave", () => {
+            isPaused = false;
+          });
+          animateCarousel();
         }
         const verEquipoBtn = document.getElementById("verEquipoCompleto");
         const equipoCompleto = document.getElementById("equipoCompleto");
