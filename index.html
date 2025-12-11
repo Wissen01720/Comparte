@@ -12,7 +12,7 @@
     />
     <style>
       :root {
-        --bg-gradient-1: linear-gradient(
+        --bg-gradient: linear-gradient(
           165deg,
           #00c3ff 0%,
           #667eea 15%,
@@ -21,35 +21,30 @@
           #ff6b6b 80%,
           #f9a826 100%
         );
-        --glass: rgba(255, 255, 255, 0.08);
-        --white-opa: rgba(255, 255, 255, 0.95);
-        --accent: #790d7f;
-        --accent-2: #667eea;
         --max-w: 1200px;
-        --nav-bg: rgba(20, 20, 40, 0.75);
       }
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       }
       html {
         scroll-behavior: smooth;
         overflow-x: hidden;
         height: 100%;
+        scroll-padding-top: 0;
       }
       html,
       body {
         height: 100%;
       }
       body {
-        margin: 0;
-        font-family: "Poppins", system-ui, -apple-system, Arial;
-        color: var(--white-opa);
-        background: var(--bg-gradient-1);
+        font-family: "Poppins", sans-serif;
+        color: rgba(255, 255, 255, 0.95);
+        background: var(--bg-gradient);
         background-attachment: scroll;
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         position: relative;
         overflow-x: hidden;
       }
@@ -84,33 +79,46 @@
       .container {
         max-width: var(--max-w);
         margin: 0 auto;
-        padding: 24px;
+        padding: 0 30px;
         position: relative;
         z-index: 1;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 20px;
+        }
+      }
+      main {
+        position: relative;
       }
       .site-header {
         position: fixed;
         top: 0;
         left: 0;
-        right: 0;
+        width: calc(100vw - 17px);
         z-index: 60;
-        background: var(--accent);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background: #790d7f;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
+
+      @media (max-width: 768px) {
+        .site-header {
+          width: 100vw;
+        }
+      }
       .site-header.scrolled {
-        backdrop-filter: blur(25px) saturate(200%);
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+        background: #790d7f;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
         border-bottom: 1px solid rgba(155, 93, 229, 0.3);
       }
       .navbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 18px 32px;
+        padding: 20px 40px;
         max-width: 1400px;
         margin: 0 auto;
       }
@@ -125,7 +133,7 @@
         filter: brightness(1.1);
       }
       .brand-logo {
-        height: 50px;
+        height: 55px;
         width: auto;
       }
       .brand {
@@ -154,7 +162,7 @@
       .nav-links {
         list-style: none;
         display: flex;
-        gap: 8px;
+        gap: 5px;
         margin: 0;
         padding: 0;
         align-items: center;
@@ -163,35 +171,30 @@
         position: relative;
       }
       .nav-links a {
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.9);
         text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        padding: 10px 18px;
-        border-radius: 12px;
+        font-weight: 500;
+        font-size: 13px;
+        padding: 10px 16px;
+        border-radius: 8px;
         display: block;
         position: relative;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
         background: transparent;
       }
       .nav-links a::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(155, 93, 229, 0.2),
-          rgba(0, 195, 255, 0.2)
-        );
+        background: rgba(255, 255, 255, 0.15);
         opacity: 0;
-        transition: opacity 0.4s ease;
-        border-radius: 12px;
+        transition: opacity 0.3s ease;
+        border-radius: 8px;
       }
       .nav-links a:hover {
         color: #fff;
-        transform: translateY(-2px);
-        text-shadow: 0 0 20px rgba(155, 93, 229, 0.6);
+        transform: translateY(-1px);
       }
       .nav-links a:hover::before {
         opacity: 1;
@@ -199,14 +202,14 @@
       .nav-links a::after {
         content: "";
         position: absolute;
-        bottom: 6px;
+        bottom: 5px;
         left: 50%;
         transform: translateX(-50%) scaleX(0);
-        width: 70%;
+        width: 60%;
         height: 2px;
-        background: linear-gradient(90deg, #00c3ff, #9b5de5, #f9a826);
+        background: #fff;
         border-radius: 2px;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.3s ease;
       }
       .nav-links a:hover::after {
         transform: translateX(-50%) scaleX(1);
@@ -236,7 +239,8 @@
         border: 2px solid rgba(255, 255, 255, 0.3);
         font-weight: 700;
         font-size: 15px;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
         position: relative;
         overflow: hidden;
         backdrop-filter: blur(10px);
@@ -266,7 +270,7 @@
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
       }
       .btn.primary {
-        background: linear-gradient(135deg, #9b5de5 0%, #667eea 100%);
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
         box-shadow: 0 10px 40px rgba(155, 93, 229, 0.4);
         border: 0;
       }
@@ -276,52 +280,56 @@
         -webkit-transform: translateY(-3px) scale(1.03) translateZ(0);
       }
       .btn.ghost {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(10px);
+        padding: 16px 40px;
+        font-size: 15px;
       }
       .btn.ghost:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.6);
       }
       .btn-outline-white {
         display: inline-block;
-        padding: 14px 32px;
+        padding: 16px 40px;
         font-size: 14px;
         font-weight: 600;
         text-transform: uppercase;
-        color: #fff !important;
-        background: transparent;
+        color: #790d7f !important;
+        background: #fff;
         border: 2px solid #fff;
-        border-radius: 8px;
+        border-radius: 50px;
         text-decoration: none;
         transition: all 0.3s ease;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
       }
       .btn-outline-white:hover {
-        background: #fff;
-        color: #667eea !important;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff !important;
+        border-color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       }
       .btn-solid-white {
         display: inline-block;
-        padding: 14px 32px;
+        padding: 16px 40px;
         font-size: 14px;
         font-weight: 600;
         text-transform: uppercase;
-        color: #667eea !important;
+        color: #790d7f !important;
         background: #fff;
         border: 2px solid #fff;
-        border-radius: 8px;
+        border-radius: 50px;
         text-decoration: none;
         transition: all 0.3s ease;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
       }
       .btn-solid-white:hover {
-        background: transparent;
-        color: #fff !important;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff !important;
+        border-color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       }
       .hero {
         min-height: 100vh;
@@ -330,7 +338,7 @@
         justify-content: center;
         position: relative;
         padding-top: 120px;
-        padding-bottom: 60px;
+        padding-bottom: 80px;
         overflow: hidden;
       }
       .hero::before {
@@ -340,7 +348,7 @@
         background-image: url("../img/FOTOS/foto mentores dic 2024.jpeg");
         background-size: cover;
         background-position: center;
-        filter: brightness(0.5) saturate(1.1);
+        filter: brightness(0.4) saturate(1.2);
         opacity: 1;
       }
       .hero-overlay {
@@ -348,11 +356,9 @@
         inset: 0;
         background: linear-gradient(
           135deg,
-          rgba(255, 107, 107, 0.5) 0%,
-          rgba(233, 69, 96, 0.6) 20%,
-          rgba(155, 93, 229, 0.7) 50%,
-          rgba(102, 126, 234, 0.6) 80%,
-          rgba(0, 195, 255, 0.5) 100%
+          rgba(121, 13, 127, 0.75) 0%,
+          rgba(155, 93, 229, 0.65) 50%,
+          rgba(102, 126, 234, 0.75) 100%
         );
         mix-blend-mode: normal;
       }
@@ -360,63 +366,64 @@
         position: relative;
         text-align: center;
         z-index: 2;
-        max-width: 1100px;
-        padding: 40px 20px 20px;
+        max-width: 900px;
+        padding: 60px 30px;
       }
       .hero-title {
-        font-size: 52px;
-        margin: 0 0 16px;
-        font-weight: 900;
-        letter-spacing: 2px;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        line-height: 1.2;
+        font-size: 48px;
+        margin: 0 0 30px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        line-height: 1.3;
         color: #fff;
       }
       .hero-subtitle {
-        font-size: 36px;
-        margin: 0 0 40px;
-        color: rgba(121, 13, 127, 0.7);
-        background: linear-gradient(rgba(255, 255, 255, 0.9));
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        font-size: 24px;
+        margin: 0 0 50px;
+        color: #fff;
         display: inline-block;
-        padding: 14px 36px;
-        border-radius: 50px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        font-weight: 800;
-        letter-spacing: 1px;
+        padding: 0;
+        border-radius: 0;
+        border: 0;
+        box-shadow: none;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        opacity: 0.95;
       }
       .hero-logos {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 30px;
-        margin: 40px 0;
+        margin: 50px 0 40px;
         flex-wrap: wrap;
       }
       .hero-logo-item {
-        width: 140px;
-        height: 140px;
+        width: 130px;
+        height: 130px;
         background: #fff;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 25px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
       }
       .hero-logo-main {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
         padding: 35px;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
       }
       .hero-logo-item:hover,
       .hero-logo-main:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        transform: translateY(-8px) scale(1.05);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
       }
       .hero-logo-item img,
       .hero-logo-main img {
@@ -425,11 +432,13 @@
         object-fit: contain;
       }
       .hero-desc {
-        font-size: 18px;
-        line-height: 1.6;
-        margin-top: 24px;
+        font-size: 20px;
+        line-height: 1.7;
+        margin-top: 0;
+        margin-bottom: 40px;
         opacity: 0.95;
         color: #fff;
+        font-weight: 300;
       }
       .quienes-hero {
         min-height: 100vh;
@@ -442,6 +451,7 @@
         padding-left: 40px;
         padding-right: 40px;
         overflow: hidden;
+        background: #ffffff;
       }
       .quienes-hero::before {
         content: "";
@@ -450,20 +460,14 @@
         background-image: url("../img/FOTOS/DSC03329.jpg");
         background-size: cover;
         background-position: center;
-        filter: brightness(0.6);
+        filter: brightness(1.2) contrast(0.8);
         z-index: 0;
+        opacity: 0.3;
       }
       .quienes-hero-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 107, 107, 0.5) 0%,
-          rgba(233, 69, 96, 0.6) 20%,
-          rgba(155, 93, 229, 0.7) 50%,
-          rgba(102, 126, 234, 0.6) 80%,
-          rgba(0, 195, 255, 0.5) 100%
-        );
+        background: rgba(255, 255, 255, 0.7);
         z-index: 1;
       }
       .quienes-content {
@@ -493,20 +497,20 @@
         object-fit: contain;
       }
       .quienes-title {
-        font-size: 64px;
+        font-size: 60px;
         font-weight: 900;
-        color: #fff;
+        color: #790d7f;
         margin-bottom: 40px;
         letter-spacing: 3px;
-        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        text-shadow: none;
         line-height: 1.1;
         text-align: center;
       }
       .quienes-box {
-        background: rgba(248, 248, 248, 0.97);
+        background: #ffffff;
         padding: 50px 60px;
         border-radius: 0;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         margin-bottom: 50px;
         width: 100%;
         max-width: 950px;
@@ -514,7 +518,7 @@
         margin-top: 70px;
       }
       .quienes-box p {
-        color: #555;
+        color: #333333;
         font-size: 16px;
         line-height: 1.8;
         margin-bottom: 16px;
@@ -553,80 +557,42 @@
         object-fit: contain;
       }
       .section {
-        padding: 80px 0;
+        padding: 100px 0;
       }
       .section-title {
-        font-size: 26px;
-        margin: 0 0 18px;
+        font-size: 48px;
+        margin: 0 0 30px;
         color: #fff;
-        font-weight: 800;
+        font-weight: 700;
         text-align: center;
+        letter-spacing: 0.5px;
       }
       .lead {
         text-align: center;
-        font-size: 18px;
-        margin-bottom: 32px;
+        font-size: 19px;
+        margin-bottom: 50px;
         opacity: 0.9;
+        line-height: 1.6;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
       }
       .subtle {
         text-align: center;
-        margin-top: 40px;
-        margin-bottom: 8px;
-        font-size: 20px;
+        margin-top: 80px;
+        margin-bottom: 15px;
+        font-size: 22px;
         font-weight: 600;
         opacity: 0.95;
       }
-      .who-grid {
-        display: grid;
-        grid-template-columns: 1fr 360px;
-        gap: 24px;
-        align-items: center;
-      }
-      .who-text p {
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.95);
-        font-size: 16px;
-        margin-bottom: 16px;
-      }
-      .logo-circle {
-        background: rgba(206, 205, 205, 0.95);
-        color: #222;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px;
-        text-align: center;
-        font-weight: 800;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-      }
-      .logo-circle.big {
-        width: 320px;
-        height: 320px;
-        font-size: 20px;
-      }
-      .logo-circle.big img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        max-width: 240px;
-        max-height: 240px;
-      }
-      .logo-circle.small {
-        width: 90px;
-        height: 90px;
-        font-size: 12px;
-      }
+
       .section.impact {
         background: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.85) 0%,
-            rgba(155, 93, 229, 0.85) 50%,
-            rgba(233, 69, 96, 0.85) 100%
-          ),
-          url("../img/FOTOS/felices-colegas-de-negocios-jovenes-emocionados-hacen-gesto-ganador.jpg");
-        background-size: cover;
-        background-position: center;
+          135deg,
+          #790d7f 0%,
+          #9b5de5 50%,
+          #667eea 100%
+        );
         position: relative;
       }
       .section.impact .container {
@@ -636,19 +602,19 @@
       .impact-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-        margin-top: 50px;
+        gap: 35px;
+        margin-top: 60px;
       }
       .impact-item {
-        background: rgba(255, 255, 255, 0.08);
-        padding: 40px 20px;
-        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 50px 30px;
+        border-radius: 16px;
         text-align: center;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         position: relative;
         overflow: hidden;
-        will-change: transform, background, box-shadow;
       }
       .impact-item::before {
         content: "";
@@ -657,41 +623,36 @@
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.1),
-          transparent
-        );
+        background: transparent;
         transition: left 0.6s ease;
       }
       .impact-item:hover::before {
         left: 100%;
       }
       .impact-item:hover {
-        transform: translateY(-10px) scale(1.05) translateZ(0);
-        -webkit-transform: translateY(-10px) scale(1.05) translateZ(0);
-        background: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 20px 60px rgba(155, 93, 229, 0.4);
-        border-color: rgba(155, 93, 229, 0.5);
+        transform: translateY(-8px);
+        -webkit-transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
       }
       .impact-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 20px;
-        background: linear-gradient(135deg, #667eea 0%, #9b5de5 100%);
-        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 25px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 10px 30px rgba(155, 93, 229, 0.3);
+        box-shadow: none;
         transition: all 0.3s ease;
-        will-change: transform, box-shadow;
+        will-change: transform;
       }
       .impact-item:hover .impact-icon {
-        transform: rotate(360deg) scale(1.1) translateZ(0);
-        -webkit-transform: rotate(360deg) scale(1.1) translateZ(0);
-        box-shadow: 0 15px 40px rgba(155, 93, 229, 0.5);
+        transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.2);
       }
       .impact-icon svg {
         width: 40px;
@@ -703,30 +664,31 @@
       }
       .counter {
         display: block;
-        font-size: 48px;
-        font-weight: 800;
+        font-size: 54px;
+        font-weight: 700;
         color: #fff;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        text-shadow: none;
         line-height: 1;
       }
       .impact-text {
         font-size: 16px;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.9);
-        line-height: 1.4;
-        margin-top: 10px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        line-height: 1.5;
+        margin-top: 15px;
       }
       .carousel {
-        margin-top: 22px;
+        margin-top: 60px;
         overflow: hidden;
-        padding: 18px 0;
+        padding: 30px 0;
       }
       .carousel-desc {
         text-align: center;
         max-width: 800px;
-        margin: 12px auto 18px;
-        opacity: 0.9;
-        font-size: 16px;
+        margin: 0 auto 40px;
+        opacity: 0.95;
+        font-size: 17px;
+        line-height: 1.6;
       }
       .carousel-track {
         display: flex;
@@ -738,51 +700,35 @@
         will-change: transform;
       }
       .logo-item {
-        min-width: 180px;
-        height: 120px;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
+        min-width: 200px;
+        height: 130px;
+        background: #ffffff;
+        border: 1px solid #e8e8e8;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
       }
       .logo-item:hover {
-        transform: translateY(-5px);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(121, 13, 127, 0.1);
+        border-color: #790d7f;
       }
       .logo-item img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
       }
-      .logo {
-        min-width: 140px;
-        height: 140px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-      }
+
       @keyframes slide {
         0% {
-          transform: translateX(0) translateZ(0);
-          -webkit-transform: translateX(0) translateZ(0);
+          transform: translateX(0);
         }
         100% {
-          transform: translateX(-50%) translateZ(0);
-          -webkit-transform: translateX(-50%) translateZ(0);
-        }
-      }
-      @-webkit-keyframes slide {
-        0% {
-          -webkit-transform: translateX(0) translateZ(0);
-        }
-        100% {
-          -webkit-transform: translateX(-50%) translateZ(0);
+          transform: translateX(-50%);
         }
       }
       .country-grid {
@@ -824,97 +770,46 @@
         font-size: 16px;
       }
       .section.team {
-        background: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.85) 0%,
-            rgba(155, 93, 229, 0.85) 50%,
-            rgba(233, 69, 96, 0.85) 100%
-          ),
-          url("../img/FOTOS/IMG-20241129-WA0006.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: scroll;
+        background: #ffffff;
         position: relative;
-      }
-
-      @media (max-width: 768px) {
-        .section.team {
-          background-image: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.95) 0%,
-            rgba(155, 93, 229, 0.95) 50%,
-            rgba(233, 69, 96, 0.95) 100%
-          );
-        }
       }
       .section.team .container {
         position: relative;
-        z-index: 1;
+        z-index: 2;
       }
-      .team-carousel-wrapper {
-        margin: 50px 0;
-        overflow: hidden;
-        padding: 20px 0;
+
+      .section.team .section-title {
+        color: #790d7f;
+        text-shadow: none;
       }
-      .team-carousel {
-        display: flex;
-        gap: 30px;
-        will-change: transform;
+
+      .section.news .section-title {
+        color: #790d7f;
+        text-shadow: none;
+        margin-bottom: 60px;
       }
-      .team-card {
-        flex: 0 0 250px;
-        flex-shrink: 0;
-        will-change: transform;
+
+      .section.contact .section-title {
+        color: #790d7f;
+        text-shadow: none;
+        margin-bottom: 50px;
       }
-      .team-card:hover .team-photo {
-        transform: scale(1.05) translateZ(0);
-        -webkit-transform: scale(1.05) translateZ(0);
-        transition: transform 0.3s ease;
+
+      .section.team .lead {
+        color: #333333;
+        opacity: 1;
       }
-      .team-photo {
-        width: 250px;
-        height: 250px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        border: 5px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-        will-change: box-shadow, border-color;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3px;
-        padding: 0;
+
+      @media (max-width: 900px) {
+        .lead {
+          font-size: 17px;
+          margin-bottom: 40px;
+        }
       }
-      .team-card:hover .team-photo {
-        box-shadow: 0 20px 60px rgba(155, 93, 229, 0.5);
-        border-color: rgba(155, 93, 229, 0.5);
-      }
-      .team-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .team-photo-dual {
-        display: flex;
-        padding: 0;
-        overflow: hidden;
-      }
-      .dual-photo-left,
-      .dual-photo-right {
-        width: 50%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .dual-photo-left {
-        border-right: 2.5px solid rgba(255, 255, 255, 0.3);
-      }
-      .dual-photo-right {
-        border-left: 2.5px solid rgba(255, 255, 255, 0.3);
-      }
+
       .team-cta {
         text-align: center;
-        margin-top: 40px;
+        margin-top: 50px;
       }
       .team-cta button {
         cursor: pointer;
@@ -924,40 +819,20 @@
       }
       .team-full-section {
         margin-top: 50px;
-        background: rgba(255, 255, 255, 0.05);
+        background: #f8f9fa;
+        border: 1px solid #e8e8e8;
         border-radius: 24px;
         padding: 50px 30px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
         animation: slideDown 0.5s ease-out;
-        -webkit-animation: slideDown 0.5s ease-out;
-        will-change: opacity, max-height;
       }
       @keyframes slideDown {
         from {
           opacity: 0;
           max-height: 0;
-          padding-top: 0;
-          padding-bottom: 0;
         }
         to {
           opacity: 1;
           max-height: 5000px;
-          padding-top: 50px;
-          padding-bottom: 50px;
-        }
-      }
-      @-webkit-keyframes slideDown {
-        from {
-          opacity: 0;
-          max-height: 0;
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-        to {
-          opacity: 1;
-          max-height: 5000px;
-          padding-top: 50px;
-          padding-bottom: 50px;
         }
       }
       .team-full-container {
@@ -984,7 +859,7 @@
         font-weight: 700;
         text-align: center;
         margin-bottom: 40px;
-        color: #fff;
+        color: #790d7f;
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       }
       .team-full-grid {
@@ -998,30 +873,6 @@
         transition: all 0.3s ease;
         opacity: 0;
         animation: fadeInUp 0.6s ease forwards;
-        -webkit-animation: fadeInUp 0.6s ease forwards;
-        will-change: opacity, transform;
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px) translateZ(0);
-          -webkit-transform: translateY(30px) translateZ(0);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) translateZ(0);
-          -webkit-transform: translateY(0) translateZ(0);
-        }
-      }
-      @-webkit-keyframes fadeInUp {
-        from {
-          opacity: 0;
-          -webkit-transform: translateY(30px) translateZ(0);
-        }
-        to {
-          opacity: 1;
-          -webkit-transform: translateY(0) translateZ(0);
-        }
       }
       .team-member:hover {
         transform: translateY(-10px);
@@ -1033,9 +884,9 @@
         border-radius: 50%;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        border: 4px solid transparent;
+        border: 3px solid #790d7f;
         background: linear-gradient(white, white) padding-box,
-          linear-gradient(135deg, #667eea 0%, #9b5de5 100%) border-box;
+          linear-gradient(135deg, #790d7f 0%, #9b5de5 100%) border-box;
         transition: all 0.3s ease;
       }
       .team-member:hover .member-photo {
@@ -1051,7 +902,7 @@
       .member-name {
         font-size: 22px;
         font-weight: 700;
-        color: #333;
+        color: #000;
         margin: 15px 0 5px;
         background: #fff;
         -webkit-background-clip: text;
@@ -1085,13 +936,6 @@
         .impact-text {
           font-size: 14px;
         }
-        .team-card {
-          flex: 0 0 180px;
-        }
-        .team-photo {
-          width: 180px;
-          height: 180px;
-        }
         .team-full-container {
           max-height: 600px;
         }
@@ -1117,15 +961,13 @@
           transform: none;
         }
         .site-header {
-          backdrop-filter: blur(8px) saturate(120%);
-          -webkit-backdrop-filter: blur(8px) saturate(120%);
+          background: #790d7f;
         }
         * {
           will-change: auto !important;
           animation-duration: 0.2s !important;
           transition-duration: 0.15s !important;
         }
-        .team-carousel,
         .carousel-track {
           will-change: transform;
           animation-duration: 15s !important;
@@ -1141,71 +983,22 @@
             rgba(233, 69, 96, 0.95) 100%
           );
         }
-        .apoyar-gradient {
-          background-image: linear-gradient(
-            135deg,
-            #790d7f 0%,
-            #e8345b 50%,
-            #ff7140 100%
-          );
-        }
       }
       @media (max-width: 480px) {
         .impact-grid {
           grid-template-columns: 1fr;
           gap: 15px;
         }
-        .apoyar-title {
-          font-size: 32px;
-        }
-        .apoyar-subtitle {
-          font-size: 16px;
-          margin-bottom: 30px;
-        }
-        .apoyar-grid {
-          grid-template-columns: 1fr;
-          gap: 30px;
-        }
-        .apoyar-card h4 {
-          font-size: 22px;
-        }
-        .form-row {
-          flex-direction: column;
-          gap: 12px;
-        }
-        .contact-form {
-          padding: 0 10px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .form-row {
-          flex-direction: column;
-          gap: 12px;
-        }
-        .apoyar-grid {
-          grid-template-columns: 1fr;
-          gap: 30px;
-        }
-        .apoyar-title {
-          font-size: 36px;
-        }
-        .apoyar-card h4 {
-          font-size: 24px;
-        }
       }
       @media (prefers-reduced-motion: reduce) {
-        *:not(.team-carousel):not(.carousel-track),
-        *:not(.team-carousel):not(.carousel-track)::before,
-        *:not(.team-carousel):not(.carousel-track)::after {
+        *:not(.carousel-track),
+        *:not(.carousel-track)::before,
+        *:not(.carousel-track)::after {
           animation-duration: 0.5s !important;
           transition-duration: 0.2s !important;
         }
         .carousel-track {
           animation-duration: 60s !important;
-        }
-        .team-carousel {
-          animation-duration: 10s !important;
         }
       }
       .section {
@@ -1213,16 +1006,9 @@
         -webkit-backface-visibility: hidden;
       }
       .section.news {
-        background: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.88) 0%,
-            rgba(155, 93, 229, 0.88) 50%,
-            rgba(233, 69, 96, 0.88) 100%
-          ),
-          url("../img/FOTOS/SESION VOCES EMPRENDEDORAS 18 DE MARZO Tu voz tu poder  Carolina Ruiz.jpeg");
-        background-size: cover;
-        background-position: center;
+        background: #ffffff;
         position: relative;
+        padding: 120px 0;
       }
       .section.news .container {
         position: relative;
@@ -1231,213 +1017,58 @@
       .news-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
+        gap: 40px;
       }
       .news-item {
-        background: rgba(255, 255, 255, 0.95);
+        background: #ffffff;
         border-radius: 16px;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
       }
       .news-item:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-        background: rgba(255, 255, 255, 1);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 40px rgba(121, 13, 127, 0.15);
+        border-color: #790d7f;
       }
       .news-item img {
         width: 100%;
-        height: 220px;
+        height: 250px;
         object-fit: cover;
         display: block;
       }
       .news-content {
-        padding: 20px;
+        padding: 30px;
       }
       .news-content h4 {
-        margin: 0 0 12px;
-        font-size: 18px;
+        margin: 0 0 15px;
+        font-size: 20px;
         font-weight: 700;
-        color: #333;
+        color: #222222;
+        line-height: 1.4;
       }
       .news-content p {
-        margin: 0 0 12px;
-        opacity: 0.9;
-        line-height: 1.5;
-        color: #555;
+        margin: 0 0 20px;
+        line-height: 1.7;
+        color: #555555;
+        font-size: 15px;
       }
       .read-more {
-        color: #667eea;
+        color: #790d7f;
         text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
+        font-weight: 500;
+        transition: color 0.2s ease;
       }
       .read-more:hover {
         color: #9b5de5;
-        text-decoration: underline;
       }
-      .support-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-      }
-      .support-card {
-        background: rgba(255, 255, 255, 0.04);
-        padding: 18px;
-        border-radius: 12px;
-        text-align: center;
-      }
-      .apoyar-gradient {
-        background: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.88) 0%,
-            rgba(155, 93, 229, 0.88) 30%,
-            rgba(233, 69, 96, 0.88) 70%,
-            rgba(255, 107, 107, 0.88) 100%
-          ),
-          url("../img/FOTOS/grupo-de-diferentes-personas-voluntarias-en-un-banco-de-alimentos.jpg") !important;
-        background-size: cover !important;
-        background-position: center !important;
-        position: relative;
-        padding: 80px 0 !important;
-        margin: 0 !important;
-        width: 100%;
-      }
-      .apoyar-gradient::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: url("../img/FOTOS/grupo-de-diferentes-personas-voluntarias-en-un-banco-de-alimentos.jpg")
-          center/cover;
-        opacity: 0.15;
-        z-index: 0;
-        pointer-events: none;
-      }
-      .apoyar-gradient .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-      }
-      .apoyar-title {
-        color: #fff !important;
-        text-align: center;
-        font-size: 48px;
-        font-weight: 800;
-        margin-bottom: 16px;
-        letter-spacing: 2px;
-      }
-      .apoyar-subtitle {
-        color: #fff !important;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 400;
-        margin-bottom: 60px;
-        opacity: 0.95;
-      }
-      .apoyar-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-      .apoyar-card {
-        text-align: center;
-        color: #fff;
-      }
-      .apoyar-card h4 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: #fff;
-      }
-      .apoyar-card p {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 30px;
-        opacity: 0.95;
-        color: #fff;
-      }
-      .section.contact {
-        background: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.85) 0%,
-            rgba(155, 93, 229, 0.85) 50%,
-            rgba(233, 69, 96, 0.85) 100%
-          ),
-          url("../img/FOTOS/trabajadores-de-negocios-de-comercio-electronico-de-hombre-y-mujer-que-trabajan-en-la-oficina.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: scroll;
-        position: relative;
-      }
-
-      .section.contact::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: url("../img/FOTOS/trabajadores-de-negocios-de-comercio-electronico-de-hombre-y-mujer-que-trabajan-en-la-oficina.jpg")
-          center/cover;
-        opacity: 0.12;
-        z-index: 0;
-        pointer-events: none;
-      }
-
-      @media (max-width: 768px) {
-        .section.contact {
-          background-image: linear-gradient(
-            135deg,
-            rgba(102, 126, 234, 0.95) 0%,
-            rgba(155, 93, 229, 0.95) 50%,
-            rgba(233, 69, 96, 0.95) 100%
-          );
-        }
-        .section.contact::before {
-          display: none;
-        }
-      }
-
-      .contact-form {
-        max-width: 760px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-      }
-
-      .form-row {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 12px;
-      }
-
-      .form-row input,
-      .form-row textarea {
-        flex: 1;
-        padding: 12px;
-        border-radius: 8px;
-        border: 0;
-        font-size: 16px;
-      }
-
-      .note {
-        opacity: 0.9;
-        margin-top: 6px;
-      }
-
-      /* ========================================
-   FOOTER
-   ======================================== */
       .site-footer {
-        background: linear-gradient(
-          135deg,
-          #790d7f 0%,
-          #e8345b 50%,
-          #ff7140 100%
-        );
-        padding: 40px 0;
+        background: #790d7f;
+        backdrop-filter: none;
+        padding: 50px 0 30px;
         margin-top: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
       .footer-grid {
         display: grid;
@@ -1598,33 +1229,50 @@
           display: none;
         }
         .brand-logo {
-          height: 50px;
+          height: 45px;
+        }
+        .section {
+          padding: 70px 0;
+        }
+        .section-title {
+          font-size: 36px;
+          margin-bottom: 25px;
         }
         .hero-title {
           font-size: 32px;
+          margin-bottom: 20px;
         }
         .hero-subtitle {
-          font-size: 22px;
-          padding: 10px 24px;
+          font-size: 18px;
+          padding: 0;
+          margin-bottom: 35px;
         }
         .hero-desc {
-          font-size: 16px;
+          font-size: 17px;
+          margin-bottom: 30px;
         }
         .hero-logos {
           gap: 20px;
         }
         .hero-logo-item {
-          width: 100px;
-          height: 100px;
-          padding: 18px;
+          width: 110px;
+          height: 110px;
+          padding: 20px;
         }
         .hero-logo-main {
-          width: 140px;
-          height: 140px;
-          padding: 25px;
+          width: 150px;
+          height: 150px;
+          padding: 28px;
         }
         .apoyar-title {
-          font-size: 32px !important;
+          font-size: 36px !important;
+        }
+        .apoyar-subtitle {
+          font-size: 18px !important;
+          margin-bottom: 50px !important;
+        }
+        .news-grid {
+          gap: 30px;
         }
         .quienes-hero {
           padding-left: 20px;
@@ -1701,10 +1349,10 @@
         width: 90%;
         max-width: 950px;
         border-radius: 30px;
-        box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
         animation: slideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: none;
       }
       .modal-close {
         position: absolute;
@@ -1732,10 +1380,10 @@
         line-height: 1;
       }
       .modal-close:hover {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
         color: white;
         transform: rotate(90deg) scale(1.15);
-        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+        box-shadow: 0 8px 30px rgba(121, 13, 127, 0.6);
         border-color: transparent;
       }
       .modal-body {
@@ -1854,6 +1502,1053 @@
           top: 15px;
           right: 15px;
         }
+        .section {
+          padding: 80px 0;
+        }
+        .section-title {
+          font-size: 36px;
+        }
+        .lead {
+          font-size: 16px;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section > .container > * {
+        animation: fadeInUp 0.6s ease-out backwards;
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #790d7f;
+        outline-offset: 2px;
+      }
+
+      .apoyar-section-new {
+        padding: 120px 0;
+        background: linear-gradient(
+          135deg,
+          #790d7f 0%,
+          #9b5de5 50%,
+          #667eea 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .apoyar-section-new::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.08) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .apoyar-header {
+        text-align: center;
+        margin-bottom: 80px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .apoyar-title-new {
+        font-size: 52px;
+        font-weight: 800;
+        color: #ffffff;
+        margin: 0 0 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .apoyar-subtitle-new {
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.92);
+        margin: 0;
+        font-weight: 300;
+        line-height: 1.6;
+      }
+
+      .apoyar-grid-new {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+
+      .apoyar-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .apoyar-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          #790d7f 0%,
+          #9b5de5 50%,
+          #667eea 100%
+        );
+      }
+
+      .apoyar-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      }
+
+      .apoyar-card-featured {
+        border: 2px solid rgba(121, 13, 127, 0.2);
+      }
+
+      .card-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+        color: #ffffff;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .card-icon-wrapper {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #f0e6f6 0%, #e8dff5 100%);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+      }
+
+      .card-icon-featured {
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+      }
+
+      .card-icon-svg {
+        width: 36px;
+        height: 36px;
+        color: #790d7f;
+      }
+
+      .card-icon-featured .card-icon-svg {
+        color: #ffffff;
+      }
+
+      .card-title-new {
+        font-size: 28px;
+        font-weight: 700;
+        color: #222222;
+        margin: 0 0 15px;
+        line-height: 1.2;
+      }
+
+      .card-description-new {
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.7;
+        margin: 0 0 30px;
+      }
+
+      .donation-details {
+        background: #f8f4ff;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 1px solid #e8dff5;
+      }
+
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #e8dff5;
+      }
+
+      .detail-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .detail-row-highlight {
+        background: #ffffff;
+        margin: 12px -12px;
+        padding: 16px 12px;
+        border-radius: 8px;
+        border: none;
+      }
+
+      .detail-label {
+        font-size: 14px;
+        color: #666666;
+        font-weight: 500;
+      }
+
+      .detail-value {
+        font-size: 15px;
+        color: #222222;
+        font-weight: 600;
+      }
+
+      .detail-value-large {
+        font-size: 18px;
+        color: #790d7f;
+        font-weight: 700;
+      }
+
+      .card-divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          #e0e0e0 50%,
+          transparent 100%
+        );
+        margin: 25px 0;
+      }
+
+      .btn-apoyar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        width: 100%;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary-new {
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+        color: #ffffff;
+      }
+
+      .btn-primary-new:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(121, 13, 127, 0.3);
+      }
+
+      .btn-secondary-new {
+        background: #ffffff;
+        color: #790d7f;
+        border: 2px solid #790d7f;
+      }
+
+      .btn-secondary-new:hover {
+        background: #790d7f;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(121, 13, 127, 0.3);
+      }
+
+      .card-note {
+        text-align: center;
+        font-size: 13px;
+        color: #888888;
+        margin: 15px 0 0;
+        font-style: italic;
+      }
+
+      @media (max-width: 1100px) {
+        .apoyar-grid-new {
+          grid-template-columns: 1fr;
+          max-width: 600px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .apoyar-section-new {
+          padding: 80px 0;
+        }
+
+        .apoyar-title-new {
+          font-size: 36px;
+        }
+
+        .apoyar-subtitle-new {
+          font-size: 18px;
+        }
+
+        .apoyar-card {
+          padding: 35px 25px;
+        }
+
+        .card-title-new {
+          font-size: 24px;
+        }
+      }
+
+      .contact-section-new {
+        padding: 120px 0;
+        background: #f8f9fa;
+        position: relative;
+      }
+
+      .contact-section-new::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 300px;
+        background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+        pointer-events: none;
+      }
+
+      .contact-header {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .contact-title-new {
+        font-size: 52px;
+        font-weight: 800;
+        color: #790d7f;
+        margin: 0 0 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .contact-subtitle-new {
+        font-size: 18px;
+        color: #555555;
+        margin: 0;
+        font-weight: 400;
+        line-height: 1.6;
+      }
+
+      .contact-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+
+      .contact-form-new {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8e8e8;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group-full {
+        grid-column: 1 / -1;
+        margin-bottom: 24px;
+      }
+
+      .form-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333333;
+        letter-spacing: 0.3px;
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 15px;
+        font-family: "Poppins", sans-serif;
+        color: #333333;
+        transition: all 0.3s ease;
+        background: #ffffff;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: #790d7f;
+        box-shadow: 0 0 0 4px rgba(121, 13, 127, 0.1);
+      }
+
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: #999999;
+      }
+
+      .form-select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23790d7f' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+        padding-right: 45px;
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+        line-height: 1.6;
+      }
+
+      .empresa-fields {
+        overflow: hidden;
+        transition: all 0.4s ease;
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .btn-submit-new {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 40px;
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .btn-submit-new:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(121, 13, 127, 0.3);
+      }
+
+      .btn-submit-new:active {
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 768px) {
+        .contact-section-new {
+          padding: 80px 0;
+        }
+
+        .contact-title-new {
+          font-size: 36px;
+        }
+
+        .contact-subtitle-new {
+          font-size: 16px;
+        }
+
+        .contact-form-new {
+          padding: 35px 25px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .btn-submit-new {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      /* ========================================
+         ESTILOS PARA SECCIÓN EQUIPO MEJORADA
+         ======================================== */
+      .section.team-new {
+        background: #ffffff;
+        padding: 120px 0;
+        position: relative;
+      }
+
+      .team-header-new {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title-new {
+        font-size: 52px;
+        font-weight: 800;
+        color: #790d7f;
+        margin: 0 0 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .section-lead-new {
+        font-size: 18px;
+        color: #555555;
+        margin: 0 auto;
+        max-width: 700px;
+        line-height: 1.7;
+      }
+
+      .team-cta-new {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .btn-team-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 40px;
+        background: #790d7f;
+        color: #ffffff;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .btn-team-toggle:hover {
+        background: #9b5de5;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(121, 13, 127, 0.3);
+      }
+
+      .btn-team-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .btn-team-toggle[aria-expanded="true"] .btn-team-icon {
+        transform: rotate(180deg);
+      }
+
+      .team-grid-section {
+        overflow: hidden;
+        transition: all 0.5s ease;
+      }
+
+      .team-grid-container {
+        max-height: 700px;
+        overflow-y: auto;
+        padding: 20px 10px;
+      }
+
+      .team-grid-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .team-grid-container::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 10px;
+      }
+
+      .team-grid-container::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+        border-radius: 10px;
+      }
+
+      .team-grid-new {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 35px;
+      }
+
+      .team-card-new {
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #e8e8e8;
+      }
+
+      .team-card-new:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 35px rgba(121, 13, 127, 0.15);
+        border-color: #790d7f;
+      }
+
+      .team-card-image {
+        width: 100%;
+        height: 280px;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(135deg, #f0e6f6 0%, #e8dff5 100%);
+      }
+
+      .team-card-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(121, 13, 127, 0.1) 100%
+        );
+      }
+
+      .team-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .team-card-new:hover .team-card-image img {
+        transform: scale(1.05);
+      }
+
+      .team-card-content {
+        padding: 25px;
+        text-align: center;
+      }
+
+      .team-card-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: #222222;
+        margin: 0 0 10px;
+        line-height: 1.3;
+      }
+
+      .team-card-role {
+        font-size: 14px;
+        color: #666666;
+        margin: 0;
+        line-height: 1.5;
+        font-weight: 500;
+      }
+
+      /* ========================================
+         ESTILOS PARA SECCIÓN NOTICIAS MEJORADA
+         ======================================== */
+      .section.news-new {
+        background: #f8f9fa;
+        padding: 120px 0;
+        position: relative;
+      }
+
+      .news-header-new {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .news-grid-new {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .news-card-new {
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #e8e8e8;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .news-card-new:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 35px rgba(121, 13, 127, 0.15);
+        border-color: #790d7f;
+      }
+
+      .news-card-image {
+        width: 100%;
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .news-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .news-card-new:hover .news-card-image img {
+        transform: scale(1.1);
+      }
+
+      .news-card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+        display: flex;
+        align-items: flex-end;
+        padding: 20px;
+      }
+
+      .news-card-category {
+        background: rgba(255, 255, 255, 0.95);
+        color: #790d7f;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .news-card-content {
+        padding: 30px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .news-card-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #222222;
+        margin: 0 0 15px;
+        line-height: 1.3;
+      }
+
+      .news-card-description {
+        font-size: 15px;
+        color: #666666;
+        line-height: 1.6;
+        margin: 0 0 25px;
+        flex: 1;
+      }
+
+      .news-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #790d7f;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .news-card-link:hover {
+        gap: 12px;
+        color: #9b5de5;
+      }
+
+      .news-card-link svg {
+        transition: transform 0.3s ease;
+      }
+
+      .news-card-link:hover svg {
+        transform: translateX(4px);
+      }
+
+      /* ========================================
+         ESTILOS PARA MODAL MEJORADO
+         ======================================== */
+      .modal-new {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-new.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 1;
+      }
+
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+      }
+
+      .modal-container-new {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        max-height: 90vh;
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+        animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 1001;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          transform: scale(0.9) translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-close-new {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .modal-close-new:hover {
+        background: #790d7f;
+        transform: rotate(90deg) scale(1.1);
+        box-shadow: 0 6px 20px rgba(121, 13, 127, 0.4);
+      }
+
+      .modal-close-new svg {
+        color: #790d7f;
+        transition: color 0.3s ease;
+      }
+
+      .modal-close-new:hover svg {
+        color: #ffffff;
+      }
+
+      .modal-content-new {
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-content-new::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .modal-content-new::-webkit-scrollbar-track {
+        background: #f0f0f0;
+      }
+
+      .modal-content-new::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+        border-radius: 10px;
+      }
+
+      .modal-image-wrapper {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        position: relative;
+        background: #f0f0f0;
+      }
+
+      .modal-image-new {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .modal-body-new {
+        padding: 45px 50px 50px;
+      }
+
+      .modal-title-new {
+        font-size: 38px;
+        font-weight: 800;
+        color: #222222;
+        margin: 0 0 25px;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+      }
+
+      .modal-description-new {
+        font-size: 17px;
+        line-height: 1.8;
+        color: #444444;
+      }
+
+      .modal-description-new h4 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #790d7f;
+        margin: 35px 0 18px;
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .modal-description-new h4::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 28px;
+        background: linear-gradient(135deg, #790d7f 0%, #9b5de5 100%);
+        border-radius: 3px;
+      }
+
+      .modal-description-new p {
+        margin-bottom: 20px;
+        text-align: justify;
+      }
+
+      .modal-description-new ul {
+        margin: 20px 0;
+        padding-left: 30px;
+      }
+
+      .modal-description-new li {
+        margin-bottom: 12px;
+        line-height: 1.8;
+      }
+
+      .modal-description-new li::marker {
+        color: #790d7f;
+        font-weight: 600;
+      }
+
+      /* ========================================
+         MEDIA QUERIES PARA RESPONSIVE
+         ======================================== */
+      @media (max-width: 768px) {
+        .section.team-new {
+          padding: 80px 0;
+        }
+
+        .section-title-new {
+          font-size: 36px;
+        }
+
+        .section-lead-new {
+          font-size: 16px;
+        }
+
+        .team-grid-new {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 25px;
+        }
+
+        .team-card-image {
+          height: 240px;
+        }
+
+        .team-grid-container {
+          max-height: 600px;
+        }
+
+        .section.news-new {
+          padding: 80px 0;
+        }
+
+        .news-grid-new {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .modal-container-new {
+          margin: 20px;
+          max-height: 85vh;
+        }
+
+        .modal-image-wrapper {
+          height: 250px;
+        }
+
+        .modal-close-new {
+          width: 40px;
+          height: 40px;
+          top: 15px;
+          right: 15px;
+        }
+
+        .modal-body-new {
+          padding: 30px 25px 35px;
+        }
+
+        .modal-title-new {
+          font-size: 28px;
+        }
+
+        .modal-description-new {
+          font-size: 16px;
+        }
+
+        .modal-description-new h4 {
+          font-size: 20px;
+        }
       }
     </style>
     <script
@@ -1866,7 +2561,7 @@
       <nav class="navbar">
         <a href="#hero" class="brand-link"
           ><img
-            src="img/LOGOS/Latinoamérica Co B.png"
+            src="img/LOGOS/Logo Blanco.png"
             alt="Latinoamérica Comparte"
             class="brand-logo"
         /></a>
@@ -1893,31 +2588,28 @@
           <h1 class="hero-title">UN PROPÓSITO QUE NACIÓ DE COLOMBIA</h1>
           <h2 class="hero-subtitle">HOY INSPIRA A TODA LATINOAMÉRICA</h2>
           <div class="hero-logos">
-            <a href="https://colombiacomparte.com" class="hero-logo-item"
-              ><img
-                src="img/LOGOS/Colombia Co N.png"
-                alt="Colombia Comparte" /></a
-            ><a href="https://ecuadorcomparte.com.co" class="hero-logo-item"
-              ><img
-                src="img/LOGOS/Ecuador Co N.png"
-                alt="Ecuador Comparte" /></a
-            ><a href="#hero" class="hero-logo-item hero-logo-main"
-              ><img
-                src="img/LOGOS/Latinoamérica Co N.png"
-                alt="Latinoamérica Comparte" /></a
-            ><a href="https://chilecomparte.com.co" class="hero-logo-item"
-              ><img src="img/LOGOS/Chile Co N.png" alt="Chile Comparte" /></a
-            ><a href="https://argentinacomparte.com" class="hero-logo-item"
-              ><img src="img/LOGOS/Argentina Co N.png" alt="Argentina Comparte"
-            /></a>
+            <a href="https://colombiacomparte.com" class="hero-logo-item">
+              <img src="img/LOGOS/Colombia Co N.png" alt="Colombia Comparte"/>
+            </a>
+            <a href="https://ecuadorcomparte.com.co" class="hero-logo-item">
+              <img src="img/LOGOS/Ecuador Co N.png" alt="Ecuador Comparte"/>
+            </a>
+            <a href="#hero" class="hero-logo-item hero-logo-main">
+              <img src="img/LOGOS/Latinoamérica Co N.png" alt="Latinoamérica Comparte"/>
+            </a>
+            <a href="https://chilecomparte.com.co" class="hero-logo-item">
+              <img src="img/LOGOS/Chile Co N.png" alt="Chile Comparte"/>
+            </a>
+            <a href="https://argentinacomparte.com" class="hero-logo-item">
+              <img src="img/LOGOS/Argentina Co N.png" alt="Argentina Comparte"/>
+            </a>
           </div>
           <p class="hero-desc">
             Una red que une personas, empresas y comunidades, para construir una
             región más humana, productiva y consciente.
           </p>
           <div class="hero-cta">
-            <a class="btn primary" href="#apoyar">Súmate</a
-            ><a class="btn ghost" href="#quienes">Conoce más</a>
+            <a class="btn ghost" href="#quienes">Conoce más</a>
           </div>
         </div>
       </section>
@@ -1927,10 +2619,7 @@
           <h1 class="quienes-title">QUIENES SOMOS</h1>
           <div class="quienes-box">
             <div class="quienes-logo">
-              <img
-                src="img/LOGOS/Latinoamérica Co N.png"
-                alt="Latinoamérica Comparte"
-              />
+              <img src="img/LOGOS/Latinoamérica Co N.png" alt="Latinoamérica Comparte"/>
             </div>
             <p>
               En Latinoamérica Comparte creemos que transformar personas es
@@ -1960,29 +2649,19 @@
               <img src="img/LOGOS/Chile Co N.png" alt="Chile Comparte" />
             </div>
             <div class="quienes-country-logo">
-              <img
-                src="img/LOGOS/Argentina Co N.png"
-                alt="Argentina Comparte"
-              />
+              <img src="img/LOGOS/Argentina Co N.png" alt="Argentina Comparte" />
             </div>
           </div>
         </div>
       </section>
-
       <section id="impacto" class="section impact">
         <div class="container">
           <h3 class="section-title">NUESTRO IMPACTO</h3>
           <div class="impact-grid">
             <div class="impact-item">
               <div class="impact-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
               </div>
               <div class="impact-number">
@@ -1994,14 +2673,8 @@
             </div>
             <div class="impact-item">
               <div class="impact-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                 </svg>
               </div>
               <div class="impact-number">
@@ -2011,14 +2684,8 @@
             </div>
             <div class="impact-item">
               <div class="impact-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/>
                 </svg>
               </div>
               <div class="impact-number">
@@ -2028,14 +2695,8 @@
             </div>
             <div class="impact-item">
               <div class="impact-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
                 </svg>
               </div>
               <div class="impact-number">
@@ -2054,19 +2715,13 @@
           <div class="carousel" aria-label="Carrusel de empresas">
             <div class="carousel-track">
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/Alpina_S.A._logo.svg.png"
-                  alt="Alpina S.A."
-                />
+                <img src="img/LOGOS/Alpina_S.A._logo.svg.png" alt="Alpina S.A."/>
               </div>
               <div class="logo-item">
                 <img src="img/LOGOS/AMCOR.png" alt="AMCOR" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/Boehringer_Ingelheim_Logo.svg.png"
-                  alt="Boehringer Ingelheim"
-                />
+                <img src="img/LOGOS/Boehringer_Ingelheim_Logo.svg.png" alt="Boehringer Ingelheim" />
               </div>
               <div class="logo-item">
                 <img src="img/LOGOS/brinks-logo-blue.png" alt="Brinks" />
@@ -2075,46 +2730,28 @@
                 <img src="img/LOGOS/Cencosud_logo.svg.png" alt="Cencosud" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/ChampionX_2.0_4C_logo_Option 3.png"
-                  alt="ChampionX"
-                />
+                <img src="img/LOGOS/ChampionX_2.0_4C_logo_Option 3.png" alt="ChampionX" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/Grupo_Exito_logo.svg.png"
-                  alt="Grupo Exito"
-                />
+                <img src="img/LOGOS/Grupo_Exito_logo.svg.png" alt="Grupo Exito" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/Grupo-Nutresa-logo-bg.png"
-                  alt="Grupo Nutresa"
-                />
+                <img src="img/LOGOS/Grupo-Nutresa-logo-bg.png" alt="Grupo Nutresa" />
               </div>
               <div class="logo-item">
                 <img src="img/LOGOS/KANTAR IBOPE.png" alt="KANTAR IBOPE" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/Logo vertical-transparente.png"
-                  alt="ECUASAL"
-                />
+                <img src="img/LOGOS/Logo vertical-transparente.png" alt="ECUASAL" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/Logo_Homecenter_Sodimac.png"
-                  alt="Homecenter Sodimac"
-                />
+                <img src="img/LOGOS/Logo_Homecenter_Sodimac.png" alt="Homecenter Sodimac" />
               </div>
               <div class="logo-item">
                 <img src="img/LOGOS/logo-jm-tracking-1.png" alt="JM Tracking" />
               </div>
               <div class="logo-item">
-                <img
-                  src="img/LOGOS/logofullcolor-SoEnergy.png"
-                  alt="SoEnergy"
-                />
+                <img src="img/LOGOS/logofullcolor-SoEnergy.png" alt="SoEnergy" />
               </div>
               <div class="logo-item">
                 <img src="img/LOGOS/Olimpia-IT.png" alt="Olimpia IT" />
@@ -2127,472 +2764,721 @@
         </div>
       </section>
 
-      <section id="equipo" class="section team">
+      <section id="equipo" class="section team-new">
         <div class="container">
-          <h3 class="section-title">NUESTRO EQUIPO</h3>
-          <p class="lead">
-            El corazón de Latinoamérica Comparte está en las personas que día a
-            día trabajan por transformar vidas.
-          </p>
-
-          <!-- Carrusel de equipo -->
-          <div class="team-carousel-wrapper">
-            <div class="team-carousel">
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/EDUARDO DEL CASTILLO.jpeg"
-                    alt="Eduardo Del Castillo"
-                  />
-                  <img src="img/FOTOS/CAROLINA RUIZ.jpg" alt="Carolina Ruiz" />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/MARCELA MORENO.jpeg"
-                    alt="Marcela Moreno"
-                  />
-                  <img
-                    src="img/FOTOS/ANGIE CASTAÑEDA.jpg"
-                    alt="Angie Castañeda"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img src="img/FOTOS/MARIANA GOMEZ.jpeg" alt="Mariana Gomez" />
-                  <img src="img/FOTOS/NANCY VIVAS.jpeg" alt="Nancy Vivas" />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img src="img/FOTOS/ANDREA GAMEZ.jpeg" alt="Andrea Gamez" />
-                  <img
-                    src="img/FOTOS/CAROLINA ARISMENDI.jpg"
-                    alt="Carolina Arismendi"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/CAROLINA PINILLA.jpg"
-                    alt="Carolina Pinilla"
-                  />
-                  <img
-                    src="img/FOTOS/CAROLINA TORRES.jpeg"
-                    alt="Carolina Torres"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img src="img/FOTOS/DOUGLAS OLAYA.png" alt="Douglas Olaya" />
-                  <img
-                    src="img/FOTOS/GLADYS TORRADO.jpeg"
-                    alt="Gladys Torrado"
-                  />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img src="img/FOTOS/LUZ AMELIA AMADO.jpg" alt="Luz Amelia" />
-                  <img src="img/FOTOS/MABEL OCAMPO.jpg" alt="Mabel Ocampo" />
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-photo">
-                  <img
-                    src="img/FOTOS/MARTHA MORDECAI.jpg"
-                    alt="Martha Mordecai"
-                  />
-                  <img src="img/FOTOS/foto mentores dic 2024.jpeg" />
-                </div>
-              </div>
-            </div>
+          <div class="team-header-new">
+            <h3 class="section-title-new">NUESTRO EQUIPO</h3>
+            <p class="section-lead-new">
+              El corazón de Latinoamérica Comparte está en las personas que día
+              a día trabajan por transformar vidas
+            </p>
           </div>
 
-          <div class="team-cta">
-            <button class="btn primary" id="verEquipoCompleto">
-              <span id="btnText">Conócelos a todos</span>
-              <svg
-                id="btnIcon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                style="margin-left: 8px; transition: transform 0.3s ease"
-              >
+          <div class="team-cta-new">
+            <button class="btn-team-toggle" id="verEquipoCompletoNew">
+              <span class="btn-team-text" id="btnTextNew">Conoce a nuestro equipo</span>
+              <svg class="btn-team-icon" id="btnIconNew" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
           </div>
 
-          <!-- Sección expandible del equipo completo -->
           <div
-            id="equipoCompleto"
-            class="team-full-section"
+            id="equipoCompletoNew"
+            class="team-grid-section"
             style="display: none"
           >
-            <div class="team-full-container">
-              <h4 class="team-full-title">Todo Nuestro Equipo</h4>
-              <div class="team-full-grid">
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/EDUARDO DEL CASTILLO.jpeg"
-                      alt="Eduardo Del Castillo"
-                    />
+            <div class="team-grid-container">
+              <div class="team-grid-new">
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/EQUIPO DE TRABAJO/EDUARDO DEL CASTILLO.jpeg" alt="Eduardo Del Castillo" />
                   </div>
-                  <h4 class="member-name">Eduardo Del Castillo</h4>
-                  <p class="member-role">
-                    Cofundador y Vicepresidente comercial para Latinoamerica
-                    Comparte
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/CAROLINA RUIZ.jpg"
-                      alt="Carolina Ruiz"
-                    />
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Eduardo Del Castillo</h4>
+                    <p class="team-card-role">
+                      Cofundador y Vicepresidente comercial para Latinoamerica
+                      Comparte
+                    </p>
                   </div>
-                  <h4 class="member-name">Carolina Ruiz</h4>
-                  <p class="member-role">
-                    Cofundadora y CEO para Latinoamérica Comparte
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/MARCELA MORENO.jpeg"
-                      alt="Marcela Moreno"
-                    />
-                  </div>
-                  <h4 class="member-name">Marcela Moreno</h4>
-                  <p class="member-role">
-                    Directora de Relacionamiento para Colombia y Latinoamérica
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/ANGIE CASTAÑEDA.jpg"
-                      alt="Angie Castañeda"
-                    />
-                  </div>
-                  <h4 class="member-name">Angie Castañeda</h4>
-                  <p class="member-role">
-                    Coordinadora Académica programa de Emprendimiento Edifica
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/MARIANA GOMEZ.jpeg"
-                      alt="Mariana Gomez"
-                    />
-                  </div>
-                  <h4 class="member-name">Mariana Gomez</h4>
-                  <p class="member-role">Directora de Mercadeo</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/NANCY VIVAS.jpeg"
-                      alt="Nancy Vivas"
-                      loading="lazy"
-                    />
-                  </div>
-                  <h4 class="member-name">Nancy Vivas</h4>
-                  <p class="member-role">
-                    Directora de comunicacion y estrategia digital
-                  </p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/ANDREA GAMEZ.jpeg"
-                      alt="Andrea Gamez"
-                      loading="lazy"
-                    />
-                  </div>
-                  <h4 class="member-name">Andrea Gamez</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/CAROLINA ARISMENDI.jpg"
-                      alt="Carolina Arismendi"
-                    />
-                  </div>
-                  <h4 class="member-name">Carolina Arismendi</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/CAROLINA PINILLA.jpg"
-                      alt="Carolina Pinilla"
-                    />
-                  </div>
-                  <h4 class="member-name">Carolina Pinilla</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/CAROLINA TORRES.jpeg"
-                      alt="Carolina Torres"
-                    />
-                  </div>
-                  <h4 class="member-name">Carolina Torres</h4>
-                  <p class="member-role">COACH</p>
-                </div>
+                </article>
 
-                <!-- Miembros 11-40 (puedes actualizar con fotos y datos reales) -->
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/DOUGLAS OLAYA.png"
-                      alt="Douglas Olaya"
-                    />
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/EQUIPO DE TRABAJO/CAROLINA RUIZ.jpg" alt="Carolina Ruiz" />
                   </div>
-                  <h4 class="member-name">Douglas Olaya</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/GLADYS TORRADO.jpeg"
-                      alt="Gladys Torrado"
-                    />
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Carolina Ruiz</h4>
+                    <p class="team-card-role">
+                      Cofundadora y CEO para Latinoamérica Comparte
+                    </p>
                   </div>
-                  <h4 class="member-name">Gladys Torrado</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/LUZ AMELIA AMADO.jpg"
-                      alt="Luz Amelia"
-                    />
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/EQUIPO DE TRABAJO/MARCELA MORENO.jpeg" alt="Marcela Moreno" />
                   </div>
-                  <h4 class="member-name">Luz Amelia</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/MABEL OCAMPO.jpg"
-                      alt="Mabel ocampo"
-                      loading="lazy"
-                    />
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Marcela Moreno</h4>
+                    <p class="team-card-role">
+                      Directora de Relacionamiento para Colombia y Latinoamérica
+                    </p>
                   </div>
-                  <h4 class="member-name">Mabel Ocampo</h4>
-                  <p class="member-role">COACH</p>
-                </div>
-                <div class="team-member">
-                  <div class="member-photo">
-                    <img
-                      src="img/FOTOS/MARTHA MORDECAI.jpg"
-                      alt="Martha Mordecai"
-                    />
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/EQUIPO DE TRABAJO/ANGIE CASTAÑEDA.jpg" alt="Angie Castañeda" />
                   </div>
-                  <h4 class="member-name">Martha Mordecai</h4>
-                  <p class="member-role">COACH</p>
-                </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Angie Castañeda</h4>
+                    <p class="team-card-role">
+                      Coordinadora Académica programa de Emprendimiento Edifica.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/EQUIPO DE TRABAJO/MARIANA GOMEZ.jpeg" alt="Mariana Gomez" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Mariana Gomez</h4>
+                    <p class="team-card-role">Directora de Mercadeo</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/EQUIPO DE TRABAJO/NANCY VIVAS.jpeg" alt="Nancy Vivas" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Nancy Vivas</h4>
+                    <p class="team-card-role">
+                      Directora de comunicacion y estrategia digital
+                    </p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/ANDREA GAMEZ.jpeg" alt="Andrea Gamez" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Andrea Gamez</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/CAROLINA ARISMENDI.jpg" alt="Carolina Arismendi" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Carolina Arismendi</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/CAROLINA PINILLA.jpg" alt="Carolina Pinilla" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Carolina Pinilla</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/CAROLINA TORRES.jpeg" alt="Carolina Torres" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Carolina Torres</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/DOUGLAS OLAYA.png" alt="Douglas Olaya" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Douglas Olaya</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/GLADYS TORRADO.jpeg" alt="Gladys Torrado" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Gladys Torrado</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/LUZ AMELIA AMADO.jpg" alt="Luz Amelia" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Luz Amelia</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/MABEL OCAMPO.jpg" alt="Mabel Ocampo" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Mabel Ocampo</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/COACHES/MARTHA MORDECAI.jpg" alt="Martha Mordecai" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Martha Mordecai</h4>
+                    <p class="team-card-role">Coach</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/ALEXANDRA GONZALEZ.jpeg" alt="Alexandra González" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Alexandra González</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/ANA MARIA CERON.jpeg" alt="Ana María Cerón" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Ana María Cerón</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/ANTONIO CRESPO.jpeg" alt="Antonio Crespo" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Antonio Crespo</h4>
+                    <p class="team-card-role">Mentor - Finanzas Personales</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/CARLOS VARELA.jpg" alt="Carlos Varela" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Carlos Varela</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/CAROLINA QUIROGA.jpeg" alt="Carolina Quiroga" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Carolina Quiroga</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/DIANA FLOREZ.png" alt="Diana Flórez" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Diana Flórez</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/ENRIQUE SAMPER.jpg" alt="Enrique Samper" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Enrique Samper</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/FERNANDO POMBO.jpg" alt="Fernando Pombo" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Fernando Pombo</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/GINA PUENTES.jpeg" alt="Gina Puentes" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Gina Puentes</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/GLORIA GARCIA.jpeg" alt="Gloria García" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Gloria García</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/GLORIA NAVAS.jpeg" alt="Gloria Navas" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Gloria Navas</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/GONZALO ARIAS.jpeg" alt="Gonzalo Arias" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Gonzalo Arias</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/JUAN MANUEL CABRERA.jpeg" alt="Juan Manuel Cabrera" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Juan Manuel Cabrera</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/KATERINE MORERA.jpeg" alt="Katerine Morera" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Katerine Morera</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/LETICIA ZORNOSA.jpg" alt="Leticia Zornosa" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Leticia Zornosa</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/LILIANA NIÑO.jpg" alt="Liliana Niño" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Liliana Niño</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/LUIS FELIPE BARRIENTOS.jpeg" alt="Luis Felipe Barrientos" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Luis Felipe Barrientos</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/LUIS FERNANDO LINARES.jpg" alt="Luis Fernando Linares" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Luis Fernando Linares</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/LUZ STELLA ROMERO.jpeg" alt="Luz Stella Romero" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Luz Stella Romero</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/MARIA ISABEL VACA.jpg" alt="Maria Isabel Vaca" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Maria Isabel Vaca</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/MARISELA CUEVAS.jpeg" alt="Marisela Cuevas" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Marisela Cuevas</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/NINA VALDERRAMA.jpg" alt="Nina Valderrama" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Nina Valderrama</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/PAULA OCAMPO.jpg" alt="Paula Ocampo" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Paula Ocampo</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/SANDRA GORDILLO.jpeg" alt="Sandra Gordillo" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Sandra Gordillo</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
+
+                <article class="team-card-new">
+                  <div class="team-card-image">
+                    <img src="img/MENTORES/TRUDDY HARKER.jpeg" alt="Truddy Harker" />
+                  </div>
+                  <div class="team-card-content">
+                    <h4 class="team-card-name">Truddy Harker</h4>
+                    <p class="team-card-role">Mentor</p>
+                  </div>
+                </article>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="noticias" class="section news">
+      <section id="noticias" class="section news-new">
         <div class="container">
-          <h3 class="section-title">NOTICIAS</h3>
-          <div class="news-grid">
-            <article class="news-item">
-              <img
-                src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg"
-                alt="Historias que inspiran"
-                loading="lazy"
-              />
-              <div class="news-content">
-                <h4>Historias que inspiran</h4>
-                <p>
+          <div class="news-header-new">
+            <h3 class="section-title-new">NOTICIAS</h3>
+            <p class="section-lead-new">
+              Mantente al día con nuestras últimas novedades y casos de éxito
+            </p>
+          </div>
+
+          <div class="news-grid-new">
+            <article class="news-card-new">
+              <div class="news-card-image">
+                <img src="img/FOTOS/WhatsApp Image 2025-08-09 at 10.09.24 AM (5).jpeg" alt="Historias que inspiran" />
+                <div class="news-card-overlay">
+                  <span class="news-card-category">Inspiración</span>
+                </div>
+              </div>
+              <div class="news-card-content">
+                <h4 class="news-card-title">Historias que inspiran</h4>
+                <p class="news-card-description">
                   Casos de éxito y emprendedores que transforman sus
                   comunidades.
                 </p>
-                <a href="#" class="read-more" data-news="1">Ver más →</a>
+                <a href="#" class="news-card-link read-more" data-news="1">
+                  <span>Leer más</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
               </div>
             </article>
-            <article class="news-item">
-              <img
-                src="img/FOTOS/IMG-20241129-WA0006.jpg"
-                alt="Noticias corporativas"
-              />
-              <div class="news-content">
-                <h4>Noticias corporativas</h4>
-                <p>Nuevas alianzas y expansión regional.</p>
-                <a href="#" class="read-more" data-news="2">Ver más →</a>
+
+            <article class="news-card-new">
+              <div class="news-card-image">
+                <img src="img/FOTOS/IMG-20241129-WA0006.jpg" alt="Noticias corporativas"/>
+                <div class="news-card-overlay">
+                  <span class="news-card-category">Corporativo</span>
+                </div>
+              </div>
+              <div class="news-card-content">
+                <h4 class="news-card-title">Noticias corporativas</h4>
+                <p class="news-card-description">
+                  Nuevas alianzas y expansión regional.
+                </p>
+                <a href="#" class="news-card-link read-more" data-news="2">
+                  <span>Leer más</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
               </div>
             </article>
-            <article class="news-item">
-              <img src="img/FOTOS/Eventos y conferencias.jpeg" alt="Eventos" />
-              <div class="news-content">
-                <h4>Eventos y conferencias</h4>
-                <p>Red que Transforma y Top Speakers en la región.</p>
-                <a href="#" class="read-more" data-news="3">Ver más →</a>
+
+            <article class="news-card-new">
+              <div class="news-card-image">
+                <img src="img/FOTOS/Eventos y conferencias.jpeg" alt="Eventos"/>
+                <div class="news-card-overlay">
+                  <span class="news-card-category">Eventos</span>
+                </div>
+              </div>
+              <div class="news-card-content">
+                <h4 class="news-card-title">Eventos y conferencias</h4>
+                <p class="news-card-description">
+                  Red que Transforma y Top Speakers en la región.
+                </p>
+                <a href="#" class="news-card-link read-more" data-news="3">
+                  <span>Leer más</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="apoyar" class="section support apoyar-gradient">
+      <section id="apoyar" class="apoyar-section-new">
         <div class="container">
-          <h3 class="section-title apoyar-title">CÓMO APOYAR</h3>
-          <p class="apoyar-subtitle">
-            Súmate a una red que transforma desde el propósito.
-          </p>
-          <div class="apoyar-grid">
-            <div class="apoyar-card">
-              <h4>Empresas aliadas</h4>
-              <p>
+          <div class="apoyar-header">
+            <h2 class="apoyar-title-new">CÓMO APOYAR</h2>
+            <p class="apoyar-subtitle-new">
+              Súmate a una red que transforma desde el propósito
+            </p>
+          </div>
+
+          <div class="apoyar-grid-new">
+            <!-- Tarjeta Empresas -->
+            <article class="apoyar-card">
+              <div class="card-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-icon-svg">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <h3 class="card-title-new">Empresas Aliadas</h3>
+              <p class="card-description-new">
                 Vincula tu compañía a nuestros programas e impulsa el bienestar
                 de tus colaboradores.
               </p>
-              <a
-                class="btn btn-outline-white"
-                href="#contacto"
-                id="empresaInfoBtn"
-                >CLICK PARA MÁS INFORMACIÓN</a
-              >
-            </div>
-            <div class="apoyar-card">
-              <h4>Donaciones individuales</h4>
-              <p>
+              <a href="#contacto" class="btn-apoyar btn-primary-new" id="empresaInfoBtn">
+                <span>Más información</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </article>
+
+            <!-- Tarjeta Donaciones -->
+            <article class="apoyar-card apoyar-card-featured">
+              <div class="card-badge">Apoya hoy</div>
+              <div class="card-icon-wrapper card-icon-featured">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="card-icon-svg">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="card-title-new">Donaciones Individuales</h3>
+              <p class="card-description-new">
                 Tu aporte ayuda a más personas a recuperar su productividad y
                 esperanza.
               </p>
-              <div
-                style="
-                  text-align: left;
-                  margin: 20px 0;
-                  padding: 20px;
-                  background: rgba(255, 255, 255, 0.15);
-                  border-radius: 12px;
-                  backdrop-filter: blur(10px);
-                  -webkit-backdrop-filter: blur(10px);
-                "
-              >
-                <p style="margin-bottom: 12px; font-weight: 600">
-                  Puedes hacer transferencia a:
-                </p>
-                <p style="margin-bottom: 8px">
-                  🏦 <strong>Bancolombia</strong> – Cuenta de ahorros
-                  <strong>084-000103-67</strong>
-                </p>
-                <p style="margin-bottom: 8px">
-                  👤 A nombre de: <strong>Fundación Colombia Comparte</strong>
-                </p>
-                <p style="margin-bottom: 15px">
-                  🆔 NIT: <strong>901.213.196-8</strong>
-                </p>
-                <p style="margin-bottom: 8px; font-weight: 600">
-                  💳 También puedes donar con tarjeta de crédito o débito:
-                </p>
+
+              <div class="donation-details">
+                <div class="detail-row">
+                  <span class="detail-label">Banco</span>
+                  <span class="detail-value">Bancolombia</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Tipo</span>
+                  <span class="detail-value">Cuenta de ahorros</span>
+                </div>
+                <div class="detail-row detail-row-highlight">
+                  <span class="detail-label">Número</span>
+                  <span class="detail-value detail-value-large">084-000103-67</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">A nombre de</span>
+                  <span class="detail-value">Fundación Colombia Comparte</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">NIT</span>
+                  <span class="detail-value">901.213.196-8</span>
+                </div>
               </div>
-              <a
-                class="btn btn-solid-white"
-                href="https://checkout.bold.co/payment/LNK_Z48LF520TB"
-                target="_blank"
-                rel="noopener"
-                >Dona aquí con tarjeta</a
-              >
-            </div>
+
+              <div class="card-divider"></div>
+
+              <a href="https://checkout.bold.co/payment/LNK_Z48LF520TB" target="_blank" rel="noopener" class="btn-apoyar btn-secondary-new">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+                <span>Donar con tarjeta</span>
+              </a>
+              <p class="card-note">
+                También aceptamos tarjetas de crédito y débito
+              </p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="contacto" class="section contact">
+      <section id="contacto" class="contact-section-new">
         <div class="container">
-          <h3 class="section-title">CONTACTENOS</h3>
-          <form class="contact-form" action="#" onsubmit="return false;">
-            <div class="form-row">
-              <input type="text" name="nombre" placeholder="Nombre" required />
-              <input type="text" name="apellido" placeholder="Apellido" />
-            </div>
-            <div class="form-row">
-              <input type="text" name="telefono" placeholder="Teléfono" />
-              <input type="text" name="pais" placeholder="País" />
-            </div>
-
-            <!-- Campos adicionales para empresas (ocultos por defecto) -->
-            <div
-              id="camposEmpresa"
-              class="campos-empresa"
-              style="display: none"
-            >
-              <div class="form-row">
-                <input
-                  type="text"
-                  name="nombreEmpresa"
-                  placeholder="Nombre de la Empresa"
-                />
-                <input type="text" name="cargo" placeholder="Cargo" />
-              </div>
-            </div>
-
-            <div class="form-row">
-              <input type="email" name="email" placeholder="Correo" required />
-            </div>
-            <div class="form-row">
-              <textarea
-                name="mensaje"
-                placeholder="En que podemos ayudarte?"
-                rows="5"
-              ></textarea>
-            </div>
-            <div class="form-row">
-              <button class="btn-solid-white" type="submit">Enviar</button>
-            </div>
-            <p class="note">
+          <div class="contact-header">
+            <h2 class="contact-title-new">CONTÁCTENOS</h2>
+            <p class="contact-subtitle-new">
               Pronto uno de nuestros gerentes regionales se pondrá en contacto
-              contigo.
+              contigo
             </p>
-          </form>
+          </div>
+
+          <div class="contact-wrapper">
+            <form class="contact-form-new" id="contactFormNew">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="nombre" class="form-label">Nombre *</label>
+                  <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Tu nombre" required />
+                </div>
+                <div class="form-group">
+                  <label for="apellido" class="form-label">Apellido</label>
+                  <input type="text" id="apellido" name="apellido" class="form-input" placeholder="Tu apellido" />
+                </div>
+
+                <div class="form-group">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="+57 300 123 4567" />
+                </div>
+
+                <div class="form-group">
+                  <label for="pais" class="form-label">País</label>
+                  <select id="pais" name="pais" class="form-input form-select">
+                    <option value="">Selecciona tu país</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Otro">Otro</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Campos de empresa (ocultos inicialmente) -->
+              <div id="camposEmpresaNew" class="empresa-fields" style="display: none">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
+                    <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-input" placeholder="Empresa S.A."/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="cargo" class="form-label">Cargo</label>
+                    <input type="text" id="cargo" name="cargo" class="form-input" placeholder="Tu cargo en la empresa" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group form-group-full">
+                <label for="email" class="form-label">Correo electrónico *</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="tucorreo@ejemplo.com" required />
+              </div>
+
+              <div class="form-group form-group-full">
+                <label for="mensaje" class="form-label">¿En qué podemos ayudarte? *</label>
+                <textarea id="mensaje" name="mensaje" class="form-textarea" rows="5" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-submit-new">
+                  <span>Enviar mensaje</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
     </main>
-
-    <!-- Modal para Noticias -->
-    <div id="newsModal" class="modal">
-      <div class="modal-content">
-        <button class="modal-close" aria-label="Cerrar modal">&times;</button>
-        <div class="modal-body">
-          <img id="modalImage" src="" alt="" class="modal-image" />
-          <h3 id="modalTitle" class="modal-title"></h3>
-          <div id="modalDescription" class="modal-description"></div>
+    <div id="newsModal" class="modal-new">
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <div class="modal-container-new">
+        <button class="modal-close-new" id="modalCloseBtn" aria-label="Cerrar modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="modal-content-new">
+          <div class="modal-image-wrapper">
+            <img id="modalImage" src="" alt="" class="modal-image-new" />
+          </div>
+          <div class="modal-body-new">
+            <h3 id="modalTitle" class="modal-title-new"></h3>
+            <div id="modalDescription" class="modal-description-new"></div>
+          </div>
         </div>
       </div>
     </div>
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="footer-brand">
-          <img
-            src="img/LOGOS/Latinoamérica Co B.png"
-            alt="Latinoamérica Comparte"
-            class="footer-logo"
-          />
+          <img src="img/LOGOS/Latinoamérica Co B.png" alt="Latinoamérica Comparte" class="footer-logo"/>
           <p>"Cuando un país comparte, Latinoamérica avanza."</p>
         </div>
         <div class="footer-links">
@@ -2609,89 +3495,29 @@
         <div class="footer-social">
           <strong>Síguenos</strong>
           <div class="social-icons-grid">
-            <a
-              href="https://www.instagram.com/latinoamericacomparte/?hl=es-la"
-              target="_blank"
-              rel="noopener"
-              class="social-icon instagram"
-              aria-label="Instagram"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-                />
+            <a href="https://www.instagram.com/latinoamericacomparte/?hl=es-la" target="_blank" rel="noopener" class="social-icon instagram" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
             </a>
-            <a
-              href="https://www.facebook.com/Ccomparte"
-              target="_blank"
-              rel="noopener"
-              class="social-icon facebook"
-              aria-label="Facebook"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-                />
+            <a href="https://www.facebook.com/Ccomparte" target="_blank" rel="noopener" class="social-icon facebook" aria-label="Facebook" >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
             </a>
-            <a
-              href="https://www.linkedin.com/company/latinoamerica-comparte/"
-              target="_blank"
-              rel="noopener"
-              class="social-icon linkedin"
-              aria-label="LinkedIn"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
-                />
+            <a href="https://www.linkedin.com/company/latinoamerica-comparte/" target="_blank" rel="noopener" class="social-icon linkedin" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
               </svg>
             </a>
-            <a
-              href="https://www.youtube.com/@colombiacomparte"
-              target="_blank"
-              rel="noopener"
-              class="social-icon youtube"
-              aria-label="YouTube"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                />
+            <a href="https://www.youtube.com/@colombiacomparte" target="_blank" rel="noopener" class="social-icon youtube" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
             </a>
-            <a
-              href="https://tiktok.com"
-              target="_blank"
-              rel="noopener"
-              class="social-icon tiktok"
-              aria-label="TikTok"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
-                />
+            <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon tiktok" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
               </svg>
             </a>
           </div>
@@ -2769,6 +3595,8 @@
           });
         }, observerOptions);
         counters.forEach((c) => counterObserver.observe(c));
+
+        // Duplicar logos del carrusel para loop infinito
         const carouselTrack = document.querySelector(".carousel-track");
         if (carouselTrack) {
           const logos = Array.from(carouselTrack.children);
@@ -2777,6 +3605,7 @@
             carouselTrack.appendChild(clone);
           });
         }
+
         document.querySelectorAll(".nav-links a").forEach((a) => {
           a.addEventListener("click", (e) => {
             const href = a.getAttribute("href");
@@ -2831,133 +3660,72 @@
           },
           2: {
             title: "Noticias corporativas",
-            image: "img/FOTOS/Copia de foto22.jpeg",
+            image: "img/FOTOS/IMG-20241129-WA0006.jpg",
             description: `<p>Latinoamérica Comparte continúa expandiendo su red de impacto a través de nuevas alianzas estratégicas con empresas líderes en la región. Nuestro compromiso con el bienestar empresarial y la productividad con propósito nos ha llevado a establecer colaboraciones innovadoras.</p><h4>Nuevas alianzas estratégicas</h4><p>Este año hemos sumado a nuestra red más de 15 empresas comprometidas con el bienestar de sus colaboradores. Estas alianzas nos permiten:</p><ul><li>Implementar programas de bienestar corporativo personalizados</li><li>Desarrollar cultura organizacional orientada al propósito</li><li>Ofrecer acompañamiento a colaboradores en situaciones de duelo o pérdida</li><li>Crear redes de apoyo entre empresas de diferentes sectores</li></ul><h4>Expansión regional</h4><p>Después del éxito en Colombia, Ecuador, Chile y Argentina, estamos evaluando expandir nuestras operaciones a Perú y México en el próximo año. Cada país que se suma a esta red multiplica el impacto positivo en la región.</p><h4>Reconocimientos</h4><p>Recientemente fuimos reconocidos por ACRIP como uno de los programas más innovadores en bienestar corporativo en Latinoamérica, destacando nuestro enfoque integral que combina el desarrollo personal con la productividad empresarial.</p>`,
           },
           3: {
             title: "Eventos y conferencias",
-            image: "img/FOTOS/people-taking-part-high-protocol-event.jpg",
+            image: "img/FOTOS/Eventos y conferencias.jpeg",
             description: `<p>Nuestros eventos "Red que Transforma" se han convertido en espacios de inspiración, aprendizaje y conexión para líderes empresariales, emprendedores y profesionales de toda Latinoamérica.</p><h4>Red que Transforma 2025</h4><p>Nuestro evento insignia reunirá en cada país a más de 500 líderes empresariales para compartir experiencias, estrategias y casos de éxito sobre:</p><ul><li>Liderazgo con propósito en tiempos de cambio</li><li>Cultura organizacional que prioriza el bienestar</li><li>Innovación en programas de desarrollo humano</li><li>Resiliencia empresarial y transformación personal</li></ul><h4>Top Speakers internacionales</h4><p>Contamos con la participación de reconocidos conferencistas y líderes de pensamiento de toda la región, incluyendo CEOs de empresas Fortune 500, emprendedores sociales y expertos en desarrollo humano y organizacional.</p><h4>Próximos eventos</h4><p><strong>Bogotá, Colombia:</strong> 15 de marzo, 2025<br><strong>Quito, Ecuador:</strong> 22 de abril, 2025<br><strong>Santiago, Chile:</strong> 10 de junio, 2025<br><strong>Buenos Aires, Argentina:</strong> 18 de agosto, 2025</p><p>Cada evento incluye talleres prácticos, sesiones de networking y oportunidades de crear alianzas estratégicas con empresas y líderes de diferentes sectores.</p>`,
           },
         };
+        // Modal mejorado con nueva estructura
         const modal = document.getElementById("newsModal");
         const modalTitle = document.getElementById("modalTitle");
         const modalImage = document.getElementById("modalImage");
         const modalDescription = document.getElementById("modalDescription");
-        const closeModal = document.querySelector(".modal-close");
-        document.querySelectorAll(".read-more").forEach((btn) => {
+        const modalClose = document.getElementById("modalCloseBtn");
+        const modalBackdrop = document.getElementById("modalBackdrop");
+
+        // Función para abrir modal
+        function openModal(newsId) {
+          const content = newsContent[newsId];
+          if (content && modal) {
+            modalTitle.textContent = content.title;
+            modalImage.src = content.image;
+            modalImage.alt = content.title;
+            modalDescription.innerHTML = content.description;
+
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+          }
+        }
+
+        // Función para cerrar modal
+        function closeModal() {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+
+        // Event listeners para abrir modal (funciona con .read-more y .news-card-link)
+        document.querySelectorAll("[data-news]").forEach((btn) => {
           btn.addEventListener("click", (e) => {
             e.preventDefault();
             const newsId = btn.getAttribute("data-news");
-            const content = newsContent[newsId];
-            if (content && modal) {
-              modalTitle.textContent = content.title;
-              modalImage.src = content.image;
-              modalImage.alt = content.title;
-              modalDescription.innerHTML = content.description;
-              modal.style.display = "flex";
-              requestAnimationFrame(() => {
-                modal.style.opacity = "1";
-              });
-            }
+            openModal(newsId);
           });
         });
-        if (closeModal) {
-          closeModal.addEventListener("click", () => {
-            modal.style.opacity = "0";
-            setTimeout(() => {
-              modal.style.display = "none";
-            }, 300);
-          });
+
+        // Event listeners para cerrar modal
+        if (modalClose) {
+          modalClose.addEventListener("click", closeModal);
         }
-        if (modal) {
-          modal.addEventListener("click", (e) => {
-            if (e.target === modal) {
-              modal.style.opacity = "0";
-              setTimeout(() => {
-                modal.style.display = "none";
-              }, 300);
-            }
-          });
+
+        if (modalBackdrop) {
+          modalBackdrop.addEventListener("click", closeModal);
         }
+
+        // Cerrar con tecla ESC
         document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && modal && modal.style.display === "flex") {
-            modal.style.opacity = "0";
-            setTimeout(() => {
-              modal.style.display = "none";
-            }, 300);
+          if (e.key === "Escape" && modal.classList.contains("active")) {
+            closeModal();
           }
         });
-        const empresaBtn = document.getElementById("empresaInfoBtn");
-        const camposEmpresa = document.getElementById("camposEmpresa");
-        if (empresaBtn && camposEmpresa) {
-          empresaBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            document
-              .getElementById("contacto")
-              .scrollIntoView({ behavior: "smooth" });
-            setTimeout(() => {
-              camposEmpresa.style.display = "block";
-              camposEmpresa.style.opacity = "0";
-              requestAnimationFrame(() => {
-                camposEmpresa.style.transition = "opacity 0.6s ease";
-                camposEmpresa.style.opacity = "1";
-              });
-            }, 300);
-          });
-        }
-        const contactForm = document.querySelector(".contact-form");
-        if (contactForm) {
-          contactForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            alert(
-              "Gracias por contactarnos. Pronto nos pondremos en contacto contigo."
-            );
-            contactForm.reset();
-            if (camposEmpresa) camposEmpresa.style.display = "none";
-          });
-        }
-        const teamCarousel = document.querySelector(".team-carousel");
-        if (teamCarousel) {
-          const currentCards = Array.from(teamCarousel.children);
-          // Duplicar las tarjetas una vez para el loop continuo
-          currentCards.forEach((card) => {
-            const clone = card.cloneNode(true);
-            teamCarousel.appendChild(clone);
-          });
-
-          let scrollPosition = 0;
-          const isMobile = window.innerWidth <= 768;
-          const scrollSpeed = isMobile ? 0.5 : 0.8; // Más lento en móvil para mejor rendimiento
-          let isPaused = false;
-
-          function animateCarousel() {
-            if (!isPaused) {
-              scrollPosition += scrollSpeed;
-              // Calcular el ancho de un set de tarjetas
-              const cardWidth = 250 + 30; // ancho + gap
-              const setWidth = cardWidth * currentCards.length;
-              // Resetear cuando completamos un ciclo completo
-              if (scrollPosition >= setWidth) {
-                scrollPosition = 0;
-              }
-              teamCarousel.style.transform = `translateX(-${scrollPosition}px)`;
-            }
-            requestAnimationFrame(animateCarousel);
-          }
-          // Pausar al hacer hover
-          teamCarousel.addEventListener("mouseenter", () => {
-            isPaused = true;
-          });
-          teamCarousel.addEventListener("mouseleave", () => {
-            isPaused = false;
-          });
-          animateCarousel();
-        }
-        const verEquipoBtn = document.getElementById("verEquipoCompleto");
-        const equipoCompleto = document.getElementById("equipoCompleto");
-        const btnText = document.getElementById("btnText");
-        const btnIcon = document.getElementById("btnIcon");
+        // Funcionalidad del botón de equipo mejorada
+        const verEquipoBtn = document.getElementById("verEquipoCompletoNew");
+        const equipoCompleto = document.getElementById("equipoCompletoNew");
+        const btnText = document.getElementById("btnTextNew");
+        const btnIcon = document.getElementById("btnIconNew");
         if (verEquipoBtn && equipoCompleto) {
           verEquipoBtn.addEventListener("click", () => {
             const isVisible = equipoCompleto.style.display === "block";
@@ -2966,24 +3734,38 @@
               equipoCompleto.style.maxHeight = "0";
               setTimeout(() => {
                 equipoCompleto.style.display = "none";
-              }, 600);
-              btnText.textContent = "Conócelos a todos";
-              btnIcon.style.transform = "rotate(0deg)";
+              }, 500);
+              btnText.textContent = "Conoce a nuestro equipo";
+              verEquipoBtn.setAttribute("aria-expanded", "false");
             } else {
               equipoCompleto.style.display = "block";
-              equipoCompleto.style.transition =
-                "opacity 0.6s ease, max-height 0.6s ease";
-              btnIcon.style.transition = "transform 0.3s ease";
-              requestAnimationFrame(() => {
+              setTimeout(() => {
                 equipoCompleto.style.opacity = "1";
                 equipoCompleto.style.maxHeight = "5000px";
-              });
+              }, 50);
               btnText.textContent = "Ver menos";
-              btnIcon.style.transform = "rotate(180deg)";
+              verEquipoBtn.setAttribute("aria-expanded", "true");
             }
           });
         }
       });
+
+      // Manejo del envío del formulario
+      const contactFormNew = document.getElementById("contactFormNew");
+      const camposEmpresaNew = document.getElementById("camposEmpresaNew");
+
+      if (contactFormNew) {
+        contactFormNew.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert(
+            "¡Gracias por contactarnos! Pronto nos pondremos en contacto contigo."
+          );
+          contactFormNew.reset();
+          if (camposEmpresaNew) {
+            camposEmpresaNew.style.display = "none";
+          }
+        });
+      }
     </script>
   </body>
 </html>
