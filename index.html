@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Latinoamérica Comparte — Inspirando Propósito</title>
+
+    <link rel="icon" type="image/png" href="img/LOGOS/Latinoamérica Co N.png" />
+    <link rel="apple-touch-icon" href="img/LOGOS/Latinoamérica Co N.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -3657,7 +3661,7 @@
       <section id="contacto" class="contact-section-new">
         <div class="container">
           <div class="contact-header">
-            <h2 class="contact-title-new">CONTÁCTENOS</h2>
+            <h2 class="contact-title-new">CONTÁCTANOS</h2>
             <p class="contact-subtitle-new">
               Pronto uno de nuestros gerentes regionales se pondrá en contacto
               contigo
@@ -3665,7 +3669,12 @@
           </div>
 
           <div class="contact-wrapper">
-            <form class="contact-form-new" id="contactFormNew">
+            <form
+              class="contact-form-new"
+              id="contactFormNew"
+              action="enviar-formulario.php"
+              method="POST"
+            >
               <div class="form-grid">
                 <div class="form-group">
                   <label for="nombre" class="form-label">Nombre *</label>
@@ -4176,14 +4185,54 @@
       const camposEmpresaNew = document.getElementById("camposEmpresaNew");
 
       if (contactFormNew) {
-        contactFormNew.addEventListener("submit", function (e) {
+        contactFormNew.addEventListener("submit", async function (e) {
           e.preventDefault();
-          alert(
-            "¡Gracias por contactarnos! Pronto nos pondremos en contacto contigo."
+
+          const submitBtn = contactFormNew.querySelector(
+            'button[type="submit"]'
           );
-          contactFormNew.reset();
-          if (camposEmpresaNew) {
-            camposEmpresaNew.style.display = "none";
+          const originalHTML = submitBtn.innerHTML;
+
+          // Deshabilitar botón y mostrar estado de carga
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = "0.7";
+          submitBtn.innerHTML = "<span>Enviando mensaje...</span>";
+
+          try {
+            const formData = new FormData(contactFormNew);
+
+            const response = await fetch(contactFormNew.action, {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+              // Éxito
+              alert(data.message);
+              contactFormNew.reset();
+              if (camposEmpresaNew) {
+                camposEmpresaNew.style.display = "none";
+              }
+            } else {
+              // Error del servidor
+              alert(
+                data.message ||
+                  "Hubo un problema al enviar tu mensaje. Por favor, intenta nuevamente."
+              );
+            }
+          } catch (error) {
+            // Error de conexión
+            console.error("Error al enviar formulario:", error);
+            alert(
+              "No se pudo conectar con el servidor. Por favor, verifica tu conexión e intenta nuevamente."
+            );
+          } finally {
+            // Restaurar botón
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+            submitBtn.innerHTML = originalHTML;
           }
         });
       }
