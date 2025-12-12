@@ -3672,9 +3672,22 @@
             <form
               class="contact-form-new"
               id="contactFormNew"
-              action="enviar-formulario.php"
+              action="https://api.web3forms.com/submit"
               method="POST"
             >
+              <!-- Web3Forms Access Key -->
+              <input
+                type="hidden"
+                name="access_key"
+                value="7a1764d4-f138-4e7a-97e2-688c2b843930"
+              />
+              <input
+                type="hidden"
+                name="subject"
+                value="Nuevo mensaje desde Latinoamérica Comparte"
+              />
+              <input type="hidden" name="from_name" value="Formulario Web" />
+
               <div class="form-grid">
                 <div class="form-group">
                   <label for="nombre" class="form-label">Nombre *</label>
@@ -4204,13 +4217,18 @@
             const response = await fetch(contactFormNew.action, {
               method: "POST",
               body: formData,
+              headers: {
+                Accept: "application/json",
+              },
             });
 
             const data = await response.json();
 
             if (response.ok && data.success) {
               // Éxito
-              alert(data.message);
+              alert(
+                "¡Gracias por contactarnos! Tu mensaje ha sido enviado exitosamente. Pronto nos pondremos en contacto contigo."
+              );
               contactFormNew.reset();
               if (camposEmpresaNew) {
                 camposEmpresaNew.style.display = "none";
